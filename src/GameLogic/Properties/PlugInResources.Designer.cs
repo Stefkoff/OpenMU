@@ -1636,6 +1636,24 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold..
+        /// </summary>
+        public static string AutoStatChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("AutoStatChatCommandPlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Stat Distribution Command.
+        /// </summary>
+        public static string AutoStatChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("AutoStatChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto Reset Command.
         /// </summary>
         public static string AutoResetChatCommandPlugIn_Name {

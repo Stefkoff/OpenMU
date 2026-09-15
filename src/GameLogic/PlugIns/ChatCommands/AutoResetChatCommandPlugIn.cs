@@ -4,9 +4,7 @@
 
 namespace MUnique.OpenMU.GameLogic.PlugIns.ChatCommands;
 
-using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
-using MUnique.OpenMU.DataModel.Entities;
 using MUnique.OpenMU.GameLogic.Attributes;
 using MUnique.OpenMU.GameLogic.PlugIns;
 using MUnique.OpenMU.GameLogic.PlugIns.ChatCommands.Arguments;
@@ -35,8 +33,6 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
 {
     private const string Command = "/autoreset";
 
-    private static readonly ConcurrentDictionary<Guid, IReadOnlyList<byte>> ActiveAutoResets = new();
-
     /// <inheritdoc />
     public override string Key => Command;
 
@@ -61,12 +57,12 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
 
         if (percentages.Sum(p => (int)p) == 0)
         {
-            ActiveAutoResets.TryRemove(character.Id, out _);
+            AutoDistributionManager.Remove(character.Id);
             await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.AutoResetDeactivated)).ConfigureAwait(false);
             return;
         }
 
-        ActiveAutoResets[character.Id] = percentages;
+        AutoDistributionManager.SetResetPercentages(character.Id, percentages);
         await player.ShowLocalizedBlueMessageAsync(
             nameof(PlayerMessage.AutoResetActivated),
             arguments.StrengthPercentage,
@@ -78,9 +74,7 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
 
         // The command was issued while the character is already at the maximum level:
         // reset once immediately, so the automation takes effect right away.
-        if (player.Attributes is { } attributes
-            && attributes[Stats.Level] == player.GameContext.Configuration.MaximumLevel
-            && PerformAutoReset(player, character, percentages) is { } result)
+        if (AutoDistributionManager.PerformAutoReset(player) is { } result)
         {
             await this.UpdateAfterResetAsync(player, result).ConfigureAwait(false);
         }
@@ -89,17 +83,7 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
     /// <inheritdoc />
     public void CharacterLeveledUp(Player player)
     {
-        var character = player.SelectedCharacter;
-        if (character?.Id is not { } characterId
-            || player.Attributes is null
-            || player.Account is { IsBot: true })
-        {
-            return;
-        }
-
-        // Only the level-up to exactly the maximum level triggers the automatic reset.
-        if (player.Attributes[Stats.Level] != player.GameContext.Configuration.MaximumLevel
-            || !ActiveAutoResets.TryGetValue(characterId, out var percentages))
+        if (player.Account is { IsBot: true } || player.SelectedCharacter is null)
         {
             return;
         }
@@ -107,7 +91,7 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
         AutoResetResult? result;
         try
         {
-            result = PerformAutoReset(player, character, percentages);
+            result = AutoDistributionManager.PerformAutoReset(player);
         }
         catch (Exception ex)
         {
@@ -126,84 +110,12 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
     /// <inheritdoc />
     public async ValueTask PlayerStateChangedAsync(Player player, State previousState, State currentState)
     {
-        if (currentState != PlayerState.Disconnected || player.SelectedCharacter?.Id is not { } characterId)
+        if (currentState == PlayerState.Disconnected)
         {
-            return;
+            AutoDistributionManager.RemoveOnLogout(player);
         }
-
-        // An offline leveling session takes over the same character, so the setting stays
-        // active there; only a real logout ends the automation.
-        var loginName = player.Account?.LoginName ?? string.Empty;
-        if (player.GameContext.OfflinePlayerManager.IsActive(loginName))
-        {
-            return;
-        }
-
-        ActiveAutoResets.TryRemove(characterId, out _);
     }
 
-    /// <summary>
-    /// Performs the automatic character reset: the reset count increases, the level and
-    /// experience go back to the configured values, the increasable stats are reset to
-    /// their base values and the granted reset points are distributed by the percentages.
-    /// No reset costs are consumed - the reset is fully automatic - and the character
-    /// stays in place (no logout, no teleport), even if the reset configuration
-    /// <see cref="ResetConfiguration.MoveHome"/> or <see cref="ResetConfiguration.LogOut"/>.
-    /// </summary>
-    /// <param name="player">The player whose character resets.</param>
-    /// <param name="character">The selected character.</param>
-    /// <param name="percentages">The five stat distribution percentages.</param>
-    /// <returns>The result of the reset, or <see langword="null"/> when it didn't happen (e.g. reset limit reached).</returns>
-    private static AutoResetResult? PerformAutoReset(Player player, Character character, IReadOnlyList<byte> percentages)
-    {
-        var attributes = player.Attributes!;
-        if (character.CharacterClass is not { } characterClass)
-        {
-            return null;
-        }
-
-        var resetConfiguration = player.GameContext.FeaturePlugIns.GetPlugIn<ResetFeaturePlugIn>()?.Configuration ?? new ResetConfiguration();
-        var resetProgression = ResetProgressionCalculator.Calculate(
-            (int)attributes[Stats.Resets],
-            (int)attributes[Stats.PointsPerReset],
-            resetConfiguration);
-
-        if (resetConfiguration.ResetLimit is > 0 && resetProgression.NextResetCount > resetConfiguration.ResetLimit)
-        {
-            return null;
-        }
-
-        attributes[Stats.Resets] = resetProgression.NextResetCount;
-        attributes[Stats.Level] = resetConfiguration.LevelAfterReset;
-        character.Experience = 0;
-
-        var statDefinitions = characterClass.StatAttributes.Where(s => s.IncreasableByPlayer).ToList();
-        var pool = resetConfiguration.ReplacePointsPerReset
-            ? resetProgression.TotalPointsAfterReset
-            : character.LevelUpPoints + resetProgression.PointsForReset;
-        pool = Math.Max(0, pool);
-
-        var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions);
-        foreach (var (attribute, share) in allocation.Allocations)
-        {
-            var statDefinition = statDefinitions.First(definition => definition.Attribute == attribute);
-            attributes[attribute] = statDefinition.BaseValue + share;
-        }
-
-        character.LevelUpPoints = allocation.LeftoverPoints;
-
-        var shares = AutoResetDistribution.TargetAttributes
-            .Select(attribute => allocation.Allocations.TryGetValue(attribute, out var share) ? share : 0)
-            .ToArray();
-        return new AutoResetResult(
-            allocation.LeftoverPoints,
-            shares[0],
-            shares[1],
-            shares[2],
-            shares[3],
-            shares[4],
-            (int)resetConfiguration.LevelAfterReset);
-    }
     private async ValueTask UpdateAfterResetAsync(Player player, AutoResetResult result)
     {
         try

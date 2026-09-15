@@ -630,6 +630,18 @@
   <data name="AutoResetPerformed" xml:space="preserve">
     <value>Auto Reset! Level reset to {0}; {1} points left to distribute manually. STR +{2}, AGI +{3}, VIT +{4}, ENE +{5}, CMD +{6}.</value>
   </data>
+  <data name="AutoStatActivated" xml:space="preserve">
+    <value>Auto Stat Distribution enabled: from {0} level-up points on, points are distributed with {1}% STR, {2}% AGI, {3}% VIT, {4}% ENE, {5}% CMD.</value>
+  </data>
+  <data name="AutoStatDeactivated" xml:space="preserve">
+    <value>Auto Stat Distribution disabled.</value>
+  </data>
+  <data name="AutoStatPercentagesInvalid" xml:space="preserve">
+    <value>Invalid Auto Stat Distribution arguments: enter the point threshold and five numbers from 0 to 100 (e.g. /autostat 1000 40 30 20 10 0); the threshold may not be negative and the total may not exceed 100.</value>
+  </data>
+  <data name="AutoStatPerformed" xml:space="preserve">
+    <value>Auto Stat Distribution: STR +{0}, AGI +{1}, VIT +{2}, ENE +{3}, CMD +{4}; {5} points left.</value>
+  </data>
   <data name="CantResetWithOpenedWindows" xml:space="preserve">
     <value>Cannot do reset with any windows opened.</value>
   </data>

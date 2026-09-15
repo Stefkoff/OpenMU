@@ -69,3 +69,8 @@ internal record AutoResetAllocation(IReadOnlyDictionary<AttributeDefinition, int
 /// </summary>
 internal record AutoResetResult(int LeftoverPoints, int Strength, int Agility, int Vitality, int Energy, int Command, int LevelAfterReset);
 
+/// <summary>
+/// The result of an automatic stat distribution, used to inform the player about the distribution.
+/// </summary>
+internal record AutoStatResult(int LeftoverPoints, int Strength, int Agility, int Vitality, int Energy, int Command);
+

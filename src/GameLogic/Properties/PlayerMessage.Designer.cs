@@ -1600,6 +1600,42 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Stat Distribution enabled: from {0} level-up points on, points are distributed with {1}% STR, {2}% AGI, {3}% VIT, {4}% ENE, {5}% CMD..
+        /// </summary>
+        public static string AutoStatActivated {
+            get {
+                return ResourceManager.GetString("AutoStatActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Stat Distribution disabled..
+        /// </summary>
+        public static string AutoStatDeactivated {
+            get {
+                return ResourceManager.GetString("AutoStatDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Auto Stat Distribution arguments: enter the point threshold and five numbers from 0 to 100 (e.g. /autostat 1000 40 30 20 10 0); the threshold may not be negative and the total may not exceed 100..
+        /// </summary>
+        public static string AutoStatPercentagesInvalid {
+            get {
+                return ResourceManager.GetString("AutoStatPercentagesInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Stat Distribution: STR +{0}, AGI +{1}, VIT +{2}, ENE +{3}, CMD +{4}; {5} points left..
+        /// </summary>
+        public static string AutoStatPerformed {
+            get {
+                return ResourceManager.GetString("AutoStatPerformed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resets of &apos;{0}&apos;: {1}..
         /// </summary>
         public static string ResetsInfo {
