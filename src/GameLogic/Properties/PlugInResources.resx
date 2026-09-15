@@ -1230,6 +1230,45 @@
   <data name="AutoStatChatCommandPlugIn_Description" xml:space="preserve">
     <value>Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold.</value>
   </data>
+  <data name="BoxOfKundumEventPlugIn_Name" xml:space="preserve">
+    <value>Box of Kundum Event</value>
+  </data>
+  <data name="BoxOfKundumEventPlugIn_Description" xml:space="preserve">
+    <value>Drops a configurable amount of Box of Luck (Box of Kundum) items at configured times and locations, fires fireworks at the drop point and announces the event to all players.</value>
+  </data>
+  <data name="BoxOfKundumEventConfiguration_StartMessage_Name" xml:space="preserve">
+    <value>Start message</value>
+  </data>
+  <data name="BoxOfKundumEventConfiguration_AnnouncementMinutesBefore_Name" xml:space="preserve">
+    <value>Announcement minutes before event</value>
+  </data>
+  <data name="BoxOfKundumEventConfiguration_AnnouncementMessage_Name" xml:space="preserve">
+    <value>Announcement message</value>
+  </data>
+  <data name="BoxOfKundumEventConfiguration_Entries_Name" xml:space="preserve">
+    <value>Drop entries</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Time_Name" xml:space="preserve">
+    <value>Time of day</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Item_Name" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Level_Name" xml:space="preserve">
+    <value>Box level</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Amount_Name" xml:space="preserve">
+    <value>Number of boxes</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Map_Name" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_X_Name" xml:space="preserve">
+    <value>X coordinate</value>
+  </data>
+  <data name="BoxOfKundumEventEntry_Y_Name" xml:space="preserve">
+    <value>Y coordinate</value>
+  </data>
   <data name="PartyAutoRejoinPlugIn_Name" xml:space="preserve">
     <value>Party Auto-Rejoin</value>
   </data>

@@ -1654,6 +1654,123 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Box of Kundum Event.
+        /// </summary>
+        public static string BoxOfKundumEventPlugIn_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventPlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drops a configurable amount of Box of Luck (Box of Kundum) items at configured times and locations, fires fireworks at the drop point and announces the event to all players..
+        /// </summary>
+        public static string BoxOfKundumEventPlugIn_Description {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventPlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start message.
+        /// </summary>
+        public static string BoxOfKundumEventConfiguration_StartMessage_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventConfiguration_StartMessage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement minutes before event.
+        /// </summary>
+        public static string BoxOfKundumEventConfiguration_AnnouncementMinutesBefore_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventConfiguration_AnnouncementMinutesBefore_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement message.
+        /// </summary>
+        public static string BoxOfKundumEventConfiguration_AnnouncementMessage_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventConfiguration_AnnouncementMessage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drop entries.
+        /// </summary>
+        public static string BoxOfKundumEventConfiguration_Entries_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventConfiguration_Entries_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time of day.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Time_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Time_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Item_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Item_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Box level.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Level_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Level_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of boxes.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Amount_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Amount_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Map_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Map_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X coordinate.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_X_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_X_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y coordinate.
+        /// </summary>
+        public static string BoxOfKundumEventEntry_Y_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventEntry_Y_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto Reset Command.
         /// </summary>
         public static string AutoResetChatCommandPlugIn_Name {
