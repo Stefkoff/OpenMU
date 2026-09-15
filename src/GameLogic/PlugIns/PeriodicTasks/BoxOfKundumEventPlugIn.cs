@@ -6,7 +6,6 @@ namespace MUnique.OpenMU.GameLogic.PlugIns.PeriodicTasks;
 
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
-using MUnique.OpenMU.DataModel.Entities;
 using MUnique.OpenMU.GameLogic.Views;
 using MUnique.OpenMU.GameLogic.Views.Character;
 using MUnique.OpenMU.Interfaces;
@@ -125,7 +124,9 @@ public class BoxOfKundumEventPlugIn : IPeriodicTaskPlugIn, ISupportCustomConfigu
         var point = new Point(entry.X, entry.Y);
         for (var i = 0; i < entry.Amount; i++)
         {
-            var item = new Item { Definition = entry.Item, Level = entry.Level };
+            // TemporaryItem initializes the item option collections which the serializers
+            // require - exactly like the regular drop generators do.
+            var item = new TemporaryItem { Definition = entry.Item, Level = entry.Level };
             item.Durability = item.GetMaximumDurabilityOfOnePiece();
             var droppedItem = new DroppedItem(item, point, map, null, null);
             await map.AddAsync(droppedItem).ConfigureAwait(false);
