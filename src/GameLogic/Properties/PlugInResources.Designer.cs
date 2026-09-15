@@ -1627,6 +1627,24 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages..
+        /// </summary>
+        public static string AutoResetChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("AutoResetChatCommandPlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Reset Command.
+        /// </summary>
+        public static string AutoResetChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("AutoResetChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline Leveling Command.
         /// </summary>
         public static string OfflineLevelingChatCommandPlugIn_Name {

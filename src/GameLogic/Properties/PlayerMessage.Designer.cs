@@ -1564,6 +1564,42 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Reset enabled: {0}% STR, {1}% AGI, {2}% VIT, {3}% ENE, {4}% CMD. The character will reset and redistribute its points automatically when reaching level {5}..
+        /// </summary>
+        public static string AutoResetActivated {
+            get {
+                return ResourceManager.GetString("AutoResetActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Reset disabled..
+        /// </summary>
+        public static string AutoResetDeactivated {
+            get {
+                return ResourceManager.GetString("AutoResetDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Auto Reset percentages: enter five numbers from 0 to 100 (e.g. /autoreset 40 30 20 10 0); the total may not exceed 100..
+        /// </summary>
+        public static string AutoResetPercentagesInvalid {
+            get {
+                return ResourceManager.GetString("AutoResetPercentagesInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Reset! Level reset to {0}; {1} points left to distribute manually. STR +{2}, AGI +{3}, VIT +{4}, ENE +{5}, CMD +{6}..
+        /// </summary>
+        public static string AutoResetPerformed {
+            get {
+                return ResourceManager.GetString("AutoResetPerformed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resets of &apos;{0}&apos;: {1}..
         /// </summary>
         public static string ResetsInfo {

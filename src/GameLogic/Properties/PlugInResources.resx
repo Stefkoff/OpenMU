@@ -1218,6 +1218,12 @@
   <data name="OfflineLevelingChatCommandPlugIn_Description" xml:space="preserve">
     <value>Allows players to start offline leveling with /offlevel. The character stays in the world after the client disconnects and stops when the player logs back in.</value>
   </data>
+  <data name="AutoResetChatCommandPlugIn_Name" xml:space="preserve">
+    <value>Auto Reset Command</value>
+  </data>
+  <data name="AutoResetChatCommandPlugIn_Description" xml:space="preserve">
+    <value>Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages.</value>
+  </data>
   <data name="PartyAutoRejoinPlugIn_Name" xml:space="preserve">
     <value>Party Auto-Rejoin</value>
   </data>

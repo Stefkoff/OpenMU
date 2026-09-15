@@ -618,6 +618,18 @@
   <data name="ResetNotEnabled" xml:space="preserve">
     <value>Reset is not enabled.</value>
   </data>
+  <data name="AutoResetActivated" xml:space="preserve">
+    <value>Auto Reset enabled: {0}% STR, {1}% AGI, {2}% VIT, {3}% ENE, {4}% CMD. The character will reset and redistribute its points automatically when reaching level {5}.</value>
+  </data>
+  <data name="AutoResetDeactivated" xml:space="preserve">
+    <value>Auto Reset disabled.</value>
+  </data>
+  <data name="AutoResetPercentagesInvalid" xml:space="preserve">
+    <value>Invalid Auto Reset percentages: enter five numbers from 0 to 100 (e.g. /autoreset 40 30 20 10 0); the total may not exceed 100.</value>
+  </data>
+  <data name="AutoResetPerformed" xml:space="preserve">
+    <value>Auto Reset! Level reset to {0}; {1} points left to distribute manually. STR +{2}, AGI +{3}, VIT +{4}, ENE +{5}, CMD +{6}.</value>
+  </data>
   <data name="CantResetWithOpenedWindows" xml:space="preserve">
     <value>Cannot do reset with any windows opened.</value>
   </data>
