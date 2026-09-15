@@ -205,6 +205,8 @@ internal static class AutoDistributionManager
     /// <summary>
     /// Performs an automatic stat distribution (<c>/autostat</c>), if the character's level-up
     /// points reached the configured threshold and stat distribution settings are active.
+    /// The points are distributed ADDITIVELY to the stats (like a player would assign them
+    /// manually) - previously invested points are never touched.
     /// </summary>
     /// <param name="player">The player.</param>
     /// <returns>The result of the distribution for the client view, or <see langword="null"/> if nothing was done.</returns>
@@ -235,8 +237,7 @@ internal static class AutoDistributionManager
         var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions);
         foreach (var (attribute, share) in allocation.Allocations)
         {
-            var statDefinition = statDefinitions.First(definition => definition.Attribute == attribute);
-            player.Attributes[attribute] = statDefinition.BaseValue + share;
+            player.Attributes[attribute] += share;
         }
 
         character.LevelUpPoints = allocation.LeftoverPoints;
