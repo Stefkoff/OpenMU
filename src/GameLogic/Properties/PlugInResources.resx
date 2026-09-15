@@ -1245,6 +1245,9 @@
   <data name="BoxOfKundumEventConfiguration_AnnouncementMessage_Name" xml:space="preserve">
     <value>Announcement message</value>
   </data>
+  <data name="BoxOfKundumEventConfiguration_DropIntervalSeconds_Name" xml:space="preserve">
+    <value>Delay between drops (seconds)</value>
+  </data>
   <data name="BoxOfKundumEventConfiguration_Entries_Name" xml:space="preserve">
     <value>Drop entries</value>
   </data>

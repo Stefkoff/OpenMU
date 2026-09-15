@@ -34,6 +34,13 @@ public class BoxOfKundumEventConfiguration
     public LocalizedString AnnouncementMessage { get; set; }
 
     /// <summary>
+    /// Gets or sets the delay in seconds between two box drops during an event.
+    /// Each dropped box fires a fireworks effect at its drop point.
+    /// </summary>
+    [Display(ResourceType = typeof(PlugInResources), Name = nameof(PlugInResources.BoxOfKundumEventConfiguration_DropIntervalSeconds_Name))]
+    public byte DropIntervalSeconds { get; set; } = 3;
+
+    /// <summary>
     /// Gets or sets the drop entries of the event. Each entry defines one daily drop at its time.
     /// </summary>
     [Display(ResourceType = typeof(PlugInResources), Name = nameof(PlugInResources.BoxOfKundumEventConfiguration_Entries_Name))]

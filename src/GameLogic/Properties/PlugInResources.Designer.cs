@@ -1699,6 +1699,15 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay between drops (seconds).
+        /// </summary>
+        public static string BoxOfKundumEventConfiguration_DropIntervalSeconds_Name {
+            get {
+                return ResourceManager.GetString("BoxOfKundumEventConfiguration_DropIntervalSeconds_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drop entries.
         /// </summary>
         public static string BoxOfKundumEventConfiguration_Entries_Name {
