@@ -13,7 +13,7 @@ using MUnique.OpenMU.DataModel.Entities;
 /// runs in real time (no pause while offline). The client indicator is a magic effect on its
 /// own dedicated number, which stacks with every other buff and is invisible to other players.
 /// </summary>
-internal static class JewelLuckBuffService
+public static class JewelLuckBuffService
 {
     /// <summary>
     /// The dedicated effect number; MUST be absent from the live config."MagicEffectDefinition"

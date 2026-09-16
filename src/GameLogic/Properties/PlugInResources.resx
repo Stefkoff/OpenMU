@@ -1332,4 +1332,10 @@
   <data name="JewelLuckBuffDuration_Description" xml:space="preserve">
     <value>How long the 100% jewel upgrade success buff lasts, in seconds.</value>
   </data>
+  <data name="JewelLuckBuffStatePlugIn_Name" xml:space="preserve">
+    <value>Gem of Success state handler</value>
+  </data>
+  <data name="JewelLuckBuffStatePlugIn_Description" xml:space="preserve">
+    <value>Restores the Gem of Success indicator effect with its remaining duration when a character enters the world.</value>
+  </data>
 </root>

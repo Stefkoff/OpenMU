@@ -3706,5 +3706,23 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("JewelLuckBuffDuration_Description", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success state handler.
+        /// </summary>
+        public static string JewelLuckBuffStatePlugIn_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStatePlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Restores the Gem of Success indicator effect with its remaining duration when a character enters the world..
+        /// </summary>
+        public static string JewelLuckBuffStatePlugIn_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStatePlugIn_Description", resourceCulture);
+            }
+        }
     }
 }
