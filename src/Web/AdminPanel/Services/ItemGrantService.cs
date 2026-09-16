@@ -4,6 +4,7 @@
 
 namespace MUnique.OpenMU.Web.AdminPanel.Services;
 
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using MUnique.OpenMU.DataModel.Configuration.Items;
 using MUnique.OpenMU.DataModel.Entities;
@@ -60,7 +61,7 @@ public class ItemGrantService
     /// Adds a new item to the character's inventory on the first free slot and saves.
     /// Returns the created item, or null if the save failed or no slot was free.
     /// </summary>
-    public async ValueTask<Item?> AddItemToCharacterAsync(Character character, ItemDefinition definition, byte level, byte? durability, CancellationToken cancellationToken = default)
+    public async ValueTask<Item?> AddItemToCharacterAsync(Character character, ItemDefinition definition, byte level, byte? durability = null, CancellationToken cancellationToken = default)
     {
         var context = await this._accountData.GetContextAsync(cancellationToken).ConfigureAwait(false);
         if (character.Inventory is not { } inventory)
@@ -69,7 +70,7 @@ public class ItemGrantService
             return null;
         }
 
-        var itemSlot = this.FindFirstFreeSlot(inventory);
+        var itemSlot = FindFirstFreeSlot(inventory);
         if (itemSlot is null)
         {
             this._logger.LogWarning("Character {Character} inventory is full", character.Name);
@@ -100,8 +101,7 @@ public class ItemGrantService
     {
         var context = await this._accountData.GetContextAsync(cancellationToken).ConfigureAwait(false);
         character.Inventory?.Items.Remove(item);
-        context.Delete(item);
-        var success = await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        var success = await context.DeleteAsync(item).ConfigureAwait(false) && await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         if (success)
         {
             this._logger.LogInformation("Removed item from character {Character}", character.Name);
