@@ -41,7 +41,7 @@ public abstract class ItemModifyConsumeHandlerPlugIn : BaseConsumeHandlerPlugIn
             return false;
         }
 
-        if (!this.ModifyItem(targetItem, player.PersistenceContext))
+        if (!this.ModifyItem(player, targetItem, player.PersistenceContext))
         {
             return false;
         }
@@ -55,8 +55,9 @@ public abstract class ItemModifyConsumeHandlerPlugIn : BaseConsumeHandlerPlugIn
     /// <summary>
     /// Modifies the item.
     /// </summary>
+    /// <param name="player">The player who consumes the jewel.</param>
     /// <param name="item">The item.</param>
     /// <param name="persistenceContext">The persistence context.</param>
     /// <returns>Flag indicating whether the modification of the item occured.</returns>
-    protected abstract bool ModifyItem(Item item, IContext persistenceContext);
+    protected abstract bool ModifyItem(Player player, Item item, IContext persistenceContext);
 }

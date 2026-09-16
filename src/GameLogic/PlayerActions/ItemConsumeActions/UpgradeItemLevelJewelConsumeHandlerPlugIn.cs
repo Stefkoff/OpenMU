@@ -7,6 +7,7 @@
 namespace MUnique.OpenMU.GameLogic.PlayerActions.ItemConsumeActions;
 
 using MUnique.OpenMU.DataModel.Configuration.Items;
+using MUnique.OpenMU.GameLogic.PlugIns.JewelLuckBuff;
 using MUnique.OpenMU.Persistence;
 using MUnique.OpenMU.PlugIns;
 
@@ -44,7 +45,7 @@ public abstract class UpgradeItemLevelJewelConsumeHandlerPlugIn<TConfig>
     public abstract object CreateDefaultConfig();
 
     /// <inheritdoc/>
-    protected override bool ModifyItem(Item item, IContext persistenceContext)
+    protected override bool ModifyItem(Player player, Item item, IContext persistenceContext)
     {
         if (!item.CanLevelBeUpgraded())
         {
@@ -75,7 +76,11 @@ public abstract class UpgradeItemLevelJewelConsumeHandlerPlugIn<TConfig>
         }
 
         int percent = this.Configuration.SuccessRatePercentage;
-        if (ItemHasLuck(item))
+        if (JewelLuckBuffService.IsActive(player))
+        {
+            percent = 100;
+        }
+        else if (ItemHasLuck(item))
         {
             percent += this.Configuration.SuccessRateBonusWithLuckPercentage;
         }
