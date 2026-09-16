@@ -1,0 +1,86 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-5 mb-4 rounded hero text-center">
+    <h1 class="display-4 fw-bold">@Model.Settings.Name</h1>
+    <p class="lead">@Model.Settings.Tagline</p>
+    <div class="mt-3">
+        @if (Model.Status?.Online == true)
+        {
+            <span class="badge text-bg-success fs-6">
+                <i class="bi bi-circle-fill"></i> Online
+                @if (Model.Status.PlayerCount is { } count)
+                {
+                    <text>&mdash; @count player@(count == 1 ? "" : "s")</text>
+                }
+            </span>
+        }
+        else
+        {
+            <span class="badge text-bg-danger fs-6">Offline</span>
+        }
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Fast leveling</h5>
+                <p class="card-text">
+                    @if (Model.ExperienceRate.HasValue)
+                    {
+                        <span class="fs-3 fw-bold">@(Model.ExperienceRate.Value.ToString("0"))x</span> experience rate
+                    }
+                    @if (Model.MasterExperienceRate.HasValue)
+                    {
+                        <br />
+                        <span class="fs-5">@(Model.MasterExperienceRate.Value.ToString("0"))x</span> master experience
+                    }
+                    @if (!Model.ExperienceRate.HasValue)
+                    {
+                        <span>Experience rates are currently unavailable.</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Resets</h5>
+                <p class="card-text">Reach level 400 and reset in-game with <code>/reset</code>. Each reset grants a new pool of points - build your character your way.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">How to start</h5>
+                <ol class="mb-0">
+                    <li><a asp-page="/Register">Register an account</a></li>
+                    <li><a asp-page="/Downloads">Download the client</a></li>
+                    <li>Log in with the same account in-game</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.LatestNews.Count > 0)
+{
+    <h2 class="h4 mb-3">Latest news</h2>
+    @foreach (var item in Model.LatestNews)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title mb-1">@item.Title</h5>
+                <div class="text-muted small mb-2">@item.Date</div>
+                <p class="card-text text-break">@Html.Raw(item.Body.Replace("\n", "<br />"))</p>
+            </div>
+        </div>
+    }
+}

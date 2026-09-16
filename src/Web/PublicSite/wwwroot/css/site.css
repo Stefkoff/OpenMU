@@ -1,0 +1,63 @@
+:root {
+    --bs-body-bg: #12141c;
+    --bs-body-color: #d8dae2;
+    --bs-border-color: #2a2e3d;
+}
+
+body {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    background-image: radial-gradient(ellipse at top, #1b2030 0%, #12141c 60%);
+    background-size: 100% 600px;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    background-color: #191c27;
+    border-color: #2a2e3d;
+}
+
+.table-dark {
+    --bs-table-bg: #191c27;
+    --bs-table-border-color: #2a2e3d;
+}
+
+.hero {
+    background-color: #1b2030;
+    border: 1px solid #2a2e3d;
+}
+
+.hero h1 {
+    background: linear-gradient(90deg, #ffd76a, #ff9d4d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+a {
+    color: #8ab4ff;
+}
+
+a:hover {
+    color: #a8c8ff;
+}
+
+.footer {
+    background-color: #0e1017;
+}
+
+.btn-primary {
+    --bs-btn-bg: #b06a00;
+    --bs-btn-border-color: #b06a00;
+    --bs-btn-hover-bg: #c97a04;
+    --bs-btn-hover-border-color: #c97a04;
+}
+
+.alert-info {
+    --bs-alert-bg: #16202e;
+    --bs-alert-border-color: #2a3a52;
+    --bs-alert-color: #9cc3f5;
+}

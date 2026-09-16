@@ -1,0 +1,42 @@
+@page
+@inject IOptions<SiteSettings> SiteOptions
+@{
+    ViewData["Title"] = "Downloads";
+}
+
+<h1 class="h4 mb-4">Downloads</h1>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5 card-title">Game client</h2>
+                <p class="card-text">The MuMain client for MuStefkoff - Season 6.</p>
+                @if (!string.IsNullOrEmpty(SiteOptions.Value.ClientDownloadUrl))
+                {
+                    <a class="btn btn-primary" href="@SiteOptions.Value.ClientDownloadUrl">Download client</a>
+                }
+                else
+                {
+                    <span class="text-muted">The client download is not published yet.</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5 card-title">Patches</h2>
+                <p class="card-text">Additional patches, main menu updates and optional content.</p>
+                @if (!string.IsNullOrEmpty(SiteOptions.Value.PatchDownloadUrl))
+                {
+                    <a class="btn btn-secondary" href="@SiteOptions.Value.PatchDownloadUrl">Download patch</a>
+                }
+                else
+                {
+                    <span class="text-muted">No patches available yet.</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>

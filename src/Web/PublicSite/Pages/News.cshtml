@@ -1,0 +1,23 @@
+@page
+@model NewsModel
+@{
+    ViewData["Title"] = "News";
+}
+
+<h1 class="h4 mb-4">News</h1>
+
+@if (Model.Items.Count == 0)
+{
+    <div class="alert alert-info">No news yet.</div>
+}
+
+@foreach (var item in Model.Items)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 class="h5 card-title mb-1">@item.Title</h2>
+            <div class="text-muted small mb-2">@item.Date</div>
+            <p class="card-text text-break mb-0">@Html.Raw(item.Body.Replace("\n", "<br />"))</p>
+        </div>
+    </div>
+}

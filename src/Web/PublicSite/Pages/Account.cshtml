@@ -1,0 +1,93 @@
+@page
+@attribute [Authorize]
+@model AccountModel
+@{
+    ViewData["Title"] = "My account";
+}
+
+<h1 class="h4 mb-4">My account <small class="text-muted">- @Model.LoginName</small></h1>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h5 card-title">Characters</h2>
+                @if (Model.Characters.Count == 0)
+                {
+                    <p class="text-muted mb-0">No characters yet. Create one in-game after logging in.</p>
+                }
+                else
+                {
+                    <table class="table table-sm table-dark align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th class="text-end">Level</th>
+                                <th class="text-end">Master</th>
+                                <th class="text-end">Resets</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.Characters.Count; i++)
+                            {
+                                var character = Model.Characters[i];
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@character.CharacterName</td>
+                                    <td>@character.ClassName</td>
+                                    <td class="text-end">@character.Level</td>
+                                    <td class="text-end">@character.MasterLevel</td>
+                                    <td class="text-end">@character.Resets</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h5 card-title">Change password</h2>
+                <form method="post" asp-page-handler="ChangePassword">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <div class="mb-3">
+                        <label asp-for="CurrentPassword" class="form-label">Current password</label>
+                        <input asp-for="CurrentPassword" class="form-control" type="password" autocomplete="current-password" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="NewPassword" class="form-label">New password</label>
+                        <input asp-for="NewPassword" class="form-control" type="password" autocomplete="new-password" maxlength="20" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConfirmNewPassword" class="form-label">Confirm new password</label>
+                        <input asp-for="ConfirmNewPassword" class="form-control" type="password" autocomplete="new-password" maxlength="20" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change password</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5 card-title">Change security code</h2>
+                <form method="post" asp-page-handler="ChangeSecurityCode">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <div class="mb-3">
+                        <label asp-for="CurrentSecurityCode" class="form-label">Current security code</label>
+                        <input asp-for="CurrentSecurityCode" class="form-control" autocomplete="off" maxlength="10" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="NewSecurityCode" class="form-label">New security code</label>
+                        <input asp-for="NewSecurityCode" class="form-control" autocomplete="off" maxlength="10" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change security code</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@page
+@inject IOptions<SiteSettings> SiteOptions
+@{
+    ViewData["Title"] = "Rules";
+}
+
+<h1 class="h4 mb-4">Server rules</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5">Gameplay</h2>
+        <ul>
+            <li>Players are expected to play fair and to respect each other.</li>
+            <li>Exploiting bugs, using cheats, bots or macros that automate gameplay is prohibited.</li>
+            <li>Exploiting a bug to duplicate items or crash the server is grounds for an immediate ban.</li>
+            <li>In-game name, guild name and store name must not contain offensive content.</li>
+            <li>Account sharing is at your own risk - the account owner is responsible for everything done with the account.</li>
+        </ul>
+
+        <h2 class="h5 mt-4">Resets and statistics</h2>
+        <ul>
+            <li>Resets are done in-game with the <code>/reset</code> command at level 400.</li>
+            <li>Each reset grants a new pool of stat points based on the server configuration.</li>
+            <li>Stat points can be distributed with <code>/autostat</code> or manually.</li>
+        </ul>
+
+        <h2 class="h5 mt-4">Your account</h2>
+        <ul>
+            <li>Never give your password or security code to anyone - not even staff. Staff never asks for them.</li>
+            <li>The security code is required in-game for character deletion and guild kicks. Keep it secret.</li>
+            <li>Lost access to your account? Only the registered e-mail or a direct request to the administration can help.</li>
+        </ul>
+
+        <p class="text-muted small mt-4">
+            @SiteOptions.Value.Name is a private, non-commercial game server, not affiliated with Webzen Inc.
+            The administration reserves the right to modify these rules at any time and to take action at its
+            own discretion in cases not covered here.
+        </p>
+    </div>
+</div>
