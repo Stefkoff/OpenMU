@@ -28,6 +28,24 @@ internal static class AutoResetDistribution
     public const int DefaultMaximumValue = 65535;
 
     /// <summary>
+    /// Gets the base values of the five target attributes from the given stat definitions,
+    /// in the order of <see cref="TargetAttributes"/>. Stats which the class doesn't support get 0.
+    /// </summary>
+    /// <param name="statDefinitions">The stat attributes of the character class.</param>
+    /// <returns>The base values of the five target attributes.</returns>
+    public static float[] GetBaseValues(IReadOnlyCollection<StatAttributeDefinition> statDefinitions)
+    {
+        var result = new float[TargetAttributes.Count];
+        for (var i = 0; i < TargetAttributes.Count; i++)
+        {
+            var statDefinition = statDefinitions.FirstOrDefault(definition => definition.Attribute == TargetAttributes[i]);
+            result[i] = statDefinition?.BaseValue ?? 0;
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// Calculates the stat allocations for the given point pool and percentages.
     /// Each stat is capped at its configured <see cref="AttributeDefinition.MaximumValue"/>
     /// (or <see cref="DefaultMaximumValue"/>); points which exceed a stat's cap are

@@ -135,6 +135,37 @@ public class AutoResetDistributionTest
         Assert.That(allocation.LeftoverPoints, Is.EqualTo(0));
     }
 
+    /// <summary>
+    /// Tests that the caps are measured relative to the class base values (which the stats are
+    /// reset to) - not relative to pre-reset stat values.
+    /// </summary>
+    [Test]
+    public void DistributionMeasuredCapsRelativeToTheBaseValue()
+    {
+        var statDefinitions = this.CreateCompleteStatDefinitions();
+        this.SetMaximumValue(statDefinitions, Stats.BaseStrength, 50);
+        var allocation = AutoResetDistribution.Calculate(1000, new byte[] { 100, 0, 0, 0, 0 }, statDefinitions, AutoResetDistribution.GetBaseValues(statDefinitions));
+
+        // base strength is 28, so only 22 fit - the stat ends exactly at the maximum of 50,
+        // and the 978 overflow points are re-distributed to agility.
+        Assert.That(allocation.Allocations[Stats.BaseStrength], Is.EqualTo(22));
+        Assert.That(allocation.Allocations[Stats.BaseAgility], Is.EqualTo(978));
+        Assert.That(allocation.LeftoverPoints, Is.EqualTo(0));
+    }
+
+    /// <summary>
+    /// Tests that the base values are returned in the order of the target attributes.
+    /// </summary>
+    [Test]
+    public void GetBaseValuesReturnsTheClassBaseValues()
+    {
+        var statDefinitions = this.CreateCompleteStatDefinitions();
+
+        var baseValues = AutoResetDistribution.GetBaseValues(statDefinitions);
+
+        Assert.That(baseValues, Is.EqualTo(new[] { 28f, 20f, 25f, 10f, 25f }));
+    }
+
     private static readonly float[] FloatZeros = [0f, 0f, 0f, 0f, 0f];
 
     private void SetMaximumValue(IEnumerable<StatAttributeDefinition> statDefinitions, AttributeDefinition attribute, float maximumValue)

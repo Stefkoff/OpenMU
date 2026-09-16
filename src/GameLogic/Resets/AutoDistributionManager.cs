@@ -153,9 +153,9 @@ internal static class AutoDistributionManager
             : character.LevelUpPoints + resetProgression.PointsForReset;
         pool = Math.Max(0, pool);
 
-        var currentValues = AutoResetDistribution.TargetAttributes
-            .Select(attribute => player.Attributes[attribute])
-            .ToArray();
+        // The reset sets every stat back to its base value first, so the caps must be
+        // measured relative to those base values - not against the pre-reset stat values.
+        var currentValues = AutoResetDistribution.GetBaseValues(statDefinitions);
         var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions, currentValues);
         foreach (var (attribute, share) in allocation.Allocations)
         {
