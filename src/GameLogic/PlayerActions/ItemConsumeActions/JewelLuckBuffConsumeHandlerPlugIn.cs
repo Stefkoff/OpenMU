@@ -39,7 +39,10 @@ public class JewelLuckBuffConsumeHandlerPlugIn : BaseConsumeHandlerPlugIn, ISupp
 
         if (JewelLuckBuffService.IsActive(player))
         {
-            await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.JewelLuckBuffAlreadyActive)).ConfigureAwait(false);
+            var remaining = player.SelectedCharacter is { JewelLuckBuffEndsAt: { } endsAt }
+                ? (int)Math.Ceiling(JewelLuckBuffService.RemainingSeconds(endsAt, JewelLuckBuffService.Clock()) / 60)
+                : 0;
+            await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.JewelLuckBuffAlreadyActive), remaining).ConfigureAwait(false);
             return false; // refuse; the item is not consumed
         }
 

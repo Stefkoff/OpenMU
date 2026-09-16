@@ -2104,11 +2104,20 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to A Gem of Success buff is already active..
+        ///   Looks up a localized string similar to A Gem of Success buff is already active ({0} minutes remaining)..
         /// </summary>
         public static string JewelLuckBuffAlreadyActive {
             get {
                 return ResourceManager.GetString("JewelLuckBuffAlreadyActive", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success is still active: all jewel upgrades succeed for another {0} minutes!.
+        /// </summary>
+        public static string JewelLuckBuffStillActive {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStillActive", resourceCulture);
             }
         }
     }

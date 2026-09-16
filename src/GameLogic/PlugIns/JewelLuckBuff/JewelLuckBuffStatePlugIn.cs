@@ -19,13 +19,24 @@ using MUnique.OpenMU.PlugIns;
 public class JewelLuckBuffStatePlugIn : IPlayerStateChangedPlugIn
 {
     /// <inheritdoc />
-    public ValueTask PlayerStateChangedAsync(Player player, State previousState, State currentState)
+    public async ValueTask PlayerStateChangedAsync(Player player, State previousState, State currentState)
     {
-        if (currentState == PlayerState.EnteredWorld)
+        if (currentState != PlayerState.EnteredWorld)
         {
-            return JewelLuckBuffService.RestoreEffectAsync(player);
+            return;
         }
 
-        return ValueTask.CompletedTask;
+        await JewelLuckBuffService.RestoreEffectAsync(player).ConfigureAwait(false);
+
+        // Explicit indicator on login: the buff runs in real time, so a relog mid-buff
+        // must tell the player it is still active and for how long.
+        if (player.SelectedCharacter is { JewelLuckBuffEndsAt: { } endsAt })
+        {
+            var remaining = (int)Math.Ceiling(JewelLuckBuffService.RemainingSeconds(endsAt, JewelLuckBuffService.Clock()) / 60);
+            if (remaining > 0)
+            {
+                await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.JewelLuckBuffStillActive), remaining).ConfigureAwait(false);
+            }
+        }
     }
 }

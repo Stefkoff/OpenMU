@@ -799,6 +799,9 @@
     <value>Gem of Success is active: all jewel upgrades succeed for {0} minutes!</value>
   </data>
   <data name="JewelLuckBuffAlreadyActive" xml:space="preserve">
-    <value>A Gem of Success buff is already active.</value>
+    <value>A Gem of Success buff is already active ({0} minutes remaining).</value>
+  </data>
+  <data name="JewelLuckBuffStillActive" xml:space="preserve">
+    <value>Gem of Success is still active: all jewel upgrades succeed for another {0} minutes!</value>
   </data>
 </root>
