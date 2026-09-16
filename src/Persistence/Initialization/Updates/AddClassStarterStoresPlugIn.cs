@@ -102,7 +102,13 @@ public class AddClassStarterStoresPlugIn : UpdatePlugInBase
             if (storage is not null)
             {
                 // Replace the store contents while keeping the existing store (and its GUID).
-                storage.Items.Clear();
+                // Note: storage.Items.Clear() is broken in this fork's CollectionAdapter
+                // (NotifyCollectionChangedAction.Reset with changed items throws), so remove
+                // the items one by one instead.
+                foreach (var existingItem in storage.Items.ToList())
+                {
+                    storage.Items.Remove(existingItem);
+                }
             }
             else
             {
