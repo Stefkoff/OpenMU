@@ -83,6 +83,7 @@ public static class WebApplicationExtensions
         services.AddSingleton<SetupService>();
         services.AddScoped<DataUpdateService>();
         services.AddScoped<AccountService>();
+        services.AddScoped<ItemGrantService>();
         services.AddScoped<IDataService<Account>>(serviceProvider => serviceProvider.GetService<AccountService>()!);
         services.AddScoped<PlugInController>();
         services.AddScoped<IDataService<PlugInConfigurationViewItem>>(serviceProvider => serviceProvider.GetService<PlugInController>()!);
