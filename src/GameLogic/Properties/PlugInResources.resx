@@ -1320,4 +1320,16 @@
   <data name="CastleSiegeLifeStoneConsumeHandlerPlugIn_Description" xml:space="preserve">
     <value>Consumes Life Stones after they are successfully placed during Castle Siege.</value>
   </data>
+  <data name="JewelLuckBuffConsumeHandlerPlugIn_Name" xml:space="preserve">
+    <value>Gem of Success consume handler</value>
+  </data>
+  <data name="JewelLuckBuffConsumeHandlerPlugIn_Description" xml:space="preserve">
+    <value>Consumes the Gem of Success item and activates the 1-hour jewel upgrade success buff. A second use while active is refused.</value>
+  </data>
+  <data name="JewelLuckBuffDuration_Name" xml:space="preserve">
+    <value>Buff duration (seconds)</value>
+  </data>
+  <data name="JewelLuckBuffDuration_Description" xml:space="preserve">
+    <value>How long the 100% jewel upgrade success buff lasts, in seconds.</value>
+  </data>
 </root>

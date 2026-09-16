@@ -2093,5 +2093,23 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("CharacterNotStrongEnoughMessage", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success is active: all jewel upgrades succeed for {0} minutes!.
+        /// </summary>
+        public static string JewelLuckBuffActivated {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffActivated", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A Gem of Success buff is already active..
+        /// </summary>
+        public static string JewelLuckBuffAlreadyActive {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffAlreadyActive", resourceCulture);
+            }
+        }
     }
 }

@@ -3670,5 +3670,41 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("CastleSiegeLifeStoneConsumeHandlerPlugIn_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success consume handler.
+        /// </summary>
+        public static string JewelLuckBuffConsumeHandlerPlugIn_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffConsumeHandlerPlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Consumes the Gem of Success item and activates the 1-hour jewel upgrade success buff. A second use while active is refused..
+        /// </summary>
+        public static string JewelLuckBuffConsumeHandlerPlugIn_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffConsumeHandlerPlugIn_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Buff duration (seconds).
+        /// </summary>
+        public static string JewelLuckBuffDuration_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffDuration_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to How long the 100% jewel upgrade success buff lasts, in seconds..
+        /// </summary>
+        public static string JewelLuckBuffDuration_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffDuration_Description", resourceCulture);
+            }
+        }
     }
 }

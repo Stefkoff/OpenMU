@@ -795,4 +795,10 @@
   <data name="CharacterNotStrongEnoughMessage" xml:space="preserve">
     <value>You are not strong enough for this yet.</value>
   </data>
+  <data name="JewelLuckBuffActivated" xml:space="preserve">
+    <value>Gem of Success is active: all jewel upgrades succeed for {0} minutes!</value>
+  </data>
+  <data name="JewelLuckBuffAlreadyActive" xml:space="preserve">
+    <value>A Gem of Success buff is already active.</value>
+  </data>
 </root>
