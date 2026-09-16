@@ -129,6 +129,12 @@ public class Character
     public DateTime CreateDate { get; set; } = DateTime.UtcNow;
 
     /// <summary>
+    /// Gets or sets the UTC timestamp until which the "Gem of Success" buff (100% jewel upgrade success) is active.
+    /// Null when inactive. Runs in real time, also while the character is offline.
+    /// </summary>
+    public DateTime? JewelLuckBuffEndsAt { get; set; }
+
+    /// <summary>
     /// Gets or sets the experience.
     /// </summary>
     public long Experience { get; set; }
