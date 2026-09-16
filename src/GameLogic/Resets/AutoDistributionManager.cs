@@ -153,7 +153,10 @@ internal static class AutoDistributionManager
             : character.LevelUpPoints + resetProgression.PointsForReset;
         pool = Math.Max(0, pool);
 
-        var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions);
+        var currentValues = AutoResetDistribution.TargetAttributes
+            .Select(attribute => player.Attributes[attribute])
+            .ToArray();
+        var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions, currentValues);
         foreach (var (attribute, share) in allocation.Allocations)
         {
             var statDefinition = statDefinitions.First(definition => definition.Attribute == attribute);
@@ -234,7 +237,10 @@ internal static class AutoDistributionManager
         var oldStats = GetStatValues(player.Attributes, AutoResetDistribution.TargetAttributes);
 
         var statDefinitions = characterClass.StatAttributes.Where(s => s.IncreasableByPlayer).ToList();
-        var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions);
+        var currentValues = AutoResetDistribution.TargetAttributes
+            .Select(attribute => player.Attributes[attribute])
+            .ToArray();
+        var allocation = AutoResetDistribution.Calculate(pool, percentages, statDefinitions, currentValues);
         foreach (var (attribute, share) in allocation.Allocations)
         {
             player.Attributes[attribute] += share;
