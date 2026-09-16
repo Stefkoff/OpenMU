@@ -223,8 +223,20 @@ public class EnterMiniGameAction
         return ticketItem is not null
             && requiredItemDefinition.Equals(ticketItem.Definition)
             && ticketItem.Durability > 0
-            && ticketItem.Level == miniGameDefinition.TicketItemLevel;
+            && IsAcceptedTicketLevel(miniGameDefinition.TicketItemLevel, ticketItem.Level);
     }
+
+    /// <summary>
+    /// Decides whether the level of a ticket item qualifies for a mini game.
+    /// A required level of 0 means "any level qualifies" - used by events which
+    /// accept a single universal ticket (e.g. the custom BC Ticket which admits
+    /// all Blood Castle levels).
+    /// </summary>
+    /// <param name="requiredLevel">The configured <see cref="MiniGameDefinition.TicketItemLevel"/>.</param>
+    /// <param name="itemLevel">The level of the ticket item.</param>
+    /// <returns>True, if the item level qualifies.</returns>
+    internal static bool IsAcceptedTicketLevel(int requiredLevel, int itemLevel)
+        => requiredLevel == 0 || requiredLevel == itemLevel;
 
     private bool CheckEntranceFee(MiniGameDefinition miniGameDefinition, Player player, out int entranceFee)
     {
