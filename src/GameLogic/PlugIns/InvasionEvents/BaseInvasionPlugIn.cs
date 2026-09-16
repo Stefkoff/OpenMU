@@ -112,6 +112,8 @@ public abstract class BaseInvasionPlugIn<TConfiguration> : PeriodicTaskBasePlugI
             var state = this.GetStateByGameContext(gameContext);
             state.AddMonster(monster);
 
+            logger.LogInformation("Invasion spawn: {Monster} on {Map} at ({X}, {Y})", monsterDefinition.Designation, gameMap.Definition.Name, spawnPoint.Value.X, spawnPoint.Value.Y);
+
             if (announceDeath)
             {
                 this.AttachDeathBroadcast(monster, state);
@@ -139,6 +141,7 @@ public abstract class BaseInvasionPlugIn<TConfiguration> : PeriodicTaskBasePlugI
         {
             if (gameContext.Configuration.Monsters.FirstOrDefault(m => m.Number == spawn.MonsterId) is { } monsterDefinition)
             {
+                logger.LogInformation("Invasion spawn batch: {Count} x {Monster} on {Map}", spawn.Count, monsterDefinition.Designation, gameMap.Definition.Name);
                 await this.CreateMonstersAsync(gameContext, logger, gameMap, monsterDefinition, spawn.Count, spawn.AnnounceDeath, spawn.X, spawn.Y).ConfigureAwait(false);
             }
             else
