@@ -7,6 +7,7 @@ namespace MUnique.OpenMU.GameLogic.PlugIns;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using MUnique.OpenMU.GameLogic.NPC;
+using MUnique.OpenMU.GameLogic.PlayerActions.Quests;
 using MUnique.OpenMU.PlugIns;
 
 /// <summary>
@@ -44,7 +45,7 @@ public class QuestMonsterKillCountPlugIn : IAttackableGotKilledPlugIn, ISupportC
 
             foreach (var killRequirement in questState.ActiveQuest.RequiredMonsterKills.Where(r => object.Equals(r.Monster, monster.Definition)))
             {
-                if (questState.RequirementStates.FirstOrDefault(s => object.Equals(s.Requirement, killRequirement))
+                if (questState.GetRequirementState(killRequirement)
                     is not { } requirementState)
                 {
                     requirementState = player.PersistenceContext.CreateNew<QuestMonsterKillRequirementState>();

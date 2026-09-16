@@ -8,6 +8,7 @@ using MUnique.OpenMU.DataModel.Configuration.Items;
 using MUnique.OpenMU.DataModel.Configuration.Quests;
 using MUnique.OpenMU.DataModel.Entities;
 using MUnique.OpenMU.GameLogic;
+using MUnique.OpenMU.GameLogic.PlayerActions.Quests;
 using MUnique.OpenMU.Network;
 using MUnique.OpenMU.Network.Packets;
 using MUnique.OpenMU.Network.Packets.ServerToClient;
@@ -196,7 +197,7 @@ public static class QuestStructExtensions
         condition.Type = ConditionType.MonsterKills;
         condition.RequiredCount = (uint)killRequirement.MinimumNumber;
         condition.RequirementId = (ushort)killRequirement.Monster!.Number;
-        condition.CurrentCount = (uint)(questState.RequirementStates.FirstOrDefault(s => s.Requirement != null && s.Requirement.Equals(killRequirement))?.KillCount ?? 0);
+        condition.CurrentCount = (uint)(questState.GetRequirementState(killRequirement)?.KillCount ?? 0);
     }
 
     private static void AssignTo(this QuestMonsterKillRequirement killRequirement, QuestConditionExtendedRef condition, CharacterQuestState questState)
@@ -204,7 +205,7 @@ public static class QuestStructExtensions
         condition.Type = ConditionType.MonsterKills;
         condition.RequiredCount = (uint)killRequirement.MinimumNumber;
         condition.RequirementId = (ushort)killRequirement.Monster!.Number;
-        condition.CurrentCount = (uint)(questState.RequirementStates.FirstOrDefault(s => s.Requirement != null && s.Requirement.Equals(killRequirement))?.KillCount ?? 0);
+        condition.CurrentCount = (uint)(questState.GetRequirementState(killRequirement)?.KillCount ?? 0);
     }
 
     private static void AssignTo(this QuestReward questReward, Network.Packets.ServerToClient.QuestRewardRef rewardStruct, IItemSerializer itemSerializer)

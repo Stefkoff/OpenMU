@@ -52,7 +52,7 @@ public class QuestCompletionAction
 
         foreach (var requiredKills in activeQuest.RequiredMonsterKills)
         {
-            var currentKillCount = questState!.RequirementStates.FirstOrDefault(r => object.Equals(r.Requirement, requiredKills))?.KillCount ?? 0;
+            var currentKillCount = questState!.GetRequirementState(requiredKills)?.KillCount ?? 0;
             if (currentKillCount >= requiredKills.MinimumNumber)
             {
                 continue;

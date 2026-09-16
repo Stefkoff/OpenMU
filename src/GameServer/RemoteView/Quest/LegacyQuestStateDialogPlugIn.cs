@@ -5,6 +5,7 @@
 namespace MUnique.OpenMU.GameServer.RemoteView.Quest;
 
 using System.Runtime.InteropServices;
+using MUnique.OpenMU.GameLogic.PlayerActions.Quests;
 using MUnique.OpenMU.GameLogic.Views.Quest;
 using MUnique.OpenMU.GameServer.MessageHandler.Quests;
 using MUnique.OpenMU.Network;
@@ -55,7 +56,7 @@ public class LegacyQuestStateDialogPlugIn : ILegacyQuestStateDialogPlugIn
                 {
                     var monsterState = packet[i];
                     monsterState.MonsterNumber = (uint)requirement.Monster!.Number;
-                    monsterState.KillCount = (uint)(questState?.RequirementStates.FirstOrDefault(r => r.Requirement == requirement)?.KillCount ?? 0);
+                    monsterState.KillCount = (uint)(questState?.GetRequirementState(requirement)?.KillCount ?? 0);
                     i++;
                 }
 
