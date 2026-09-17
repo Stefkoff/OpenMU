@@ -1222,13 +1222,13 @@
     <value>Auto Reset Command</value>
   </data>
   <data name="AutoResetChatCommandPlugIn_Description" xml:space="preserve">
-    <value>Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages.</value>
+    <value>Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages. Use /autoreset off to deactivate it.</value>
   </data>
   <data name="AutoStatChatCommandPlugIn_Name" xml:space="preserve">
     <value>Auto Stat Distribution Command</value>
   </data>
   <data name="AutoStatChatCommandPlugIn_Description" xml:space="preserve">
-    <value>Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold.</value>
+    <value>Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold. Use /autostat off to deactivate it.</value>
   </data>
   <data name="BoxOfKundumEventPlugIn_Name" xml:space="preserve">
     <value>Box of Kundum Event</value>
