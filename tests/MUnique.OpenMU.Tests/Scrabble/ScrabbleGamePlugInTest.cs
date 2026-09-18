@@ -165,6 +165,7 @@ public class ScrabbleGamePlugInTest
 
         Assert.That(result, Is.EqualTo(GuessResult.Win));
         var inventoryItem = player.Inventory!.Items.Single();
+        Assert.That(inventoryItem, Is.TypeOf<MUnique.OpenMU.Persistence.BasicModel.Item>(), "The reward item must be created through the persistence context (EF requires its own Item type).");
         Assert.That(inventoryItem.Definition, Is.SameAs(itemDefinition));
         Assert.That(inventoryItem.Level, Is.EqualTo(3));
         Assert.That(inventoryItem.ItemOptions, Has.Count.EqualTo(1), "Luck option must be applied.");

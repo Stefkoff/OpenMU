@@ -265,7 +265,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
 
         if (reward.ItemDefinition is { } itemDefinition)
         {
-            var item = ItemChatCommandPlugIn.CreateItem(itemDefinition, new ItemChatCommandArgs
+            var arguments = new ItemChatCommandArgs
             {
                 Group = itemDefinition.Group,
                 Number = itemDefinition.Number,
@@ -276,7 +276,12 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
                 ExcellentNumber = reward.ExcellentNumber,
                 Ancient = reward.Ancient,
                 AncientBonusLevel = reward.AncientBonusLevel,
-            });
+            };
+
+            // Build the item as a persistence-created entity so the EF inventory storage accepts
+            // it (CollectionAdapter requires EntityFramework.Model.Item; TemporaryItem is rejected).
+            var item = player.PersistenceContext.CreateNew<Item>();
+            ItemChatCommandPlugIn.CreateItem(item, itemDefinition, arguments, player.PersistenceContext);
 
             // Durability override: CreateItem already applied the item default (stackables 1);
             // only override when the admin configured an explicit value (0 = use default).
@@ -292,9 +297,12 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
                 return $"{itemDefinition.Name} (item added to inventory)";
             }
 
+            // The inventory rejected the item - remove the dangling persistence object again and
+            // drop a fresh TemporaryItem at the player's feet instead.
+            await player.PersistenceContext.DeleteAsync(item).ConfigureAwait(false);
             if (player.CurrentMap is { } map)
             {
-                var droppedItem = new DroppedItem(item, player.RandomPosition, map, player, player.GetAsEnumerable());
+                var droppedItem = new DroppedItem(ItemChatCommandPlugIn.CreateItem(itemDefinition, arguments), player.RandomPosition, map, player, player.GetAsEnumerable());
                 await map.AddAsync(droppedItem).ConfigureAwait(false);
                 return $"{itemDefinition.Name} (inventory full - dropped at your feet)";
             }
