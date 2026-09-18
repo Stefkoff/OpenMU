@@ -4,6 +4,7 @@
 
 namespace MUnique.OpenMU.Tests.Scrabble;
 
+using MUnique.OpenMU.DataModel.Configuration.Items;
 using MUnique.OpenMU.GameLogic;
 using MUnique.OpenMU.GameLogic.PlugIns.PeriodicTasks;
 using MUnique.OpenMU.GameLogic.PlugIns.Scrabble;
@@ -14,7 +15,15 @@ using MUnique.OpenMU.GameLogic.PlugIns.Scrabble;
 [TestFixture]
 public class ScrabbleGamePlugInTest
 {
-    private readonly GameContext gameContext = (GameContext)GameContextTestHelper.CreateGameContext();
+    private GameContext gameContext = null!;
+
+    [SetUp]
+    public void SetUp()
+    {
+        // Fresh context per test: the base plugin keeps a static per-(plugin type, context)
+        // state dictionary, so sharing a context between tests leaks game state into the next test.
+        this.gameContext = (GameContext)GameContextTestHelper.CreateGameContext();
+    }
 
     private static ScrabbleConfiguration CreateConfiguration()
     {
@@ -110,5 +119,54 @@ public class ScrabbleGamePlugInTest
         var result = await plugin.TryGuessAsync(this.gameContext, player, "hello").ConfigureAwait(false);
 
         Assert.That(result, Is.EqualTo(GuessResult.NoActiveRound));
+    }
+
+    [Test]
+    public async ValueTask Flow_ItemReward_GrantedIntoInventoryAsync()
+    {
+        var itemDefinition = new MUnique.OpenMU.Persistence.BasicModel.ItemDefinition
+        {
+            Name = "Test Sword",
+            Group = 0,
+            Number = 1,
+            Durability = 100,
+            Width = 1,
+            Height = 2,
+        };
+        var luckOptionDefinition = new MUnique.OpenMU.Persistence.BasicModel.ItemOptionDefinition();
+        luckOptionDefinition.PossibleOptions.Add(new MUnique.OpenMU.Persistence.BasicModel.IncreasableItemOption
+        {
+            OptionType = ItemOptionTypes.Luck,
+        });
+        itemDefinition.PossibleItemOptions.Add(luckOptionDefinition);
+        var config = new ScrabbleConfiguration
+        {
+            PreStartMessageDelay = TimeSpan.Zero,
+            TaskDuration = TimeSpan.FromMinutes(10),
+            Rounds =
+            [
+                new()
+                {
+                    Words = new List<ScrabbleWordConfiguration> { new() { Word = "hello" }, new() { Word = "world" } },
+                    Reward = new() { ItemDefinition = itemDefinition, Level = 3, Luck = true },
+                },
+            ],
+        };
+        var plugin = new ScrabbleGamePlugIn { Configuration = config };
+
+        plugin.ForceStart();
+        await plugin.ExecuteTaskAsync(this.gameContext).ConfigureAwait(false);
+        await plugin.ExecuteTaskAsync(this.gameContext).ConfigureAwait(false);
+
+        var state = plugin.GetStateForTest(this.gameContext);
+        var player = await PlayerTestHelper.CreatePlayerAsync(this.gameContext).ConfigureAwait(false);
+
+        var result = await plugin.TryGuessAsync(this.gameContext, player, state.CurrentWord!).ConfigureAwait(false);
+
+        Assert.That(result, Is.EqualTo(GuessResult.Win));
+        var inventoryItem = player.Inventory!.Items.Single();
+        Assert.That(inventoryItem.Definition, Is.SameAs(itemDefinition));
+        Assert.That(inventoryItem.Level, Is.EqualTo(3));
+        Assert.That(inventoryItem.ItemOptions, Has.Count.EqualTo(1), "Luck option must be applied.");
     }
 }

@@ -69,6 +69,20 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
     public static Item CreateItem(DataModel.Configuration.Items.ItemDefinition itemDefinition, ItemChatCommandArgs arguments)
     {
         var item = new TemporaryItem();
+        return CreateItem(item, itemDefinition, arguments);
+    }
+
+    /// <summary>
+    /// Applies the full /item attribute set (definition, level, durability, sockets, skill,
+    /// option, luck, excellent and ancient options) to the given item instance.
+    /// </summary>
+    /// <param name="item">The item to configure. Usually a <see cref="TemporaryItem"/> for ground drops,
+    /// or a persistence-created item when adding to an inventory.</param>
+    /// <param name="itemDefinition">The item definition.</param>
+    /// <param name="arguments">The attributes.</param>
+    /// <returns>The configured item.</returns>
+    public static Item CreateItem(Item item, DataModel.Configuration.Items.ItemDefinition itemDefinition, ItemChatCommandArgs arguments)
+    {
         item.Definition = itemDefinition;
         item.Durability = item.IsStackable() ? 1 : item.Definition.Durability;
         item.HasSkill = item.Definition.Skill != null && arguments.Skill;
@@ -83,7 +97,7 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         return item;
     }
 
-    private static void AddOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddOption(Item item, ItemChatCommandArgs arguments)
     {
         if (item.Definition != null && arguments.Opt > 0)
         {
@@ -126,7 +140,7 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         }
     }
 
-    private static void AddLuckOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddLuckOption(Item item, ItemChatCommandArgs arguments)
     {
         if (item.Definition != null && arguments.Luck)
         {
@@ -141,7 +155,7 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         }
     }
 
-    private static void AddExcellentOptions(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddExcellentOptions(Item item, ItemChatCommandArgs arguments)
     {
         if (item.Definition != null && arguments.ExcellentNumber > 0)
         {
@@ -164,7 +178,7 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         }
     }
 
-    private static void AddAncientBonusOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddAncientBonusOption(Item item, ItemChatCommandArgs arguments)
     {
         if (item.Definition != null && arguments.Ancient > 0
                                     && item.Definition.PossibleItemSetGroups.FirstOrDefault(g => g.Items.Any(i => i.ItemDefinition == item.Definition && i.AncientSetDiscriminator == arguments.Ancient)) is { } ancientSet
