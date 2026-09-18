@@ -11,7 +11,7 @@ namespace MUnique.OpenMU.GameLogic.PlugIns.Scrabble;
 public static class ScrambleHelper
 {
     /// <summary>Picks one random word from the list. Empty/null list → null.</summary>
-    public static string? PickWord(IReadOnlyList<string> words, Random random)
+    public static string? PickWord(IList<string> words, Random random)
         => words.Count == 0 ? null : words[random.Next(words.Count)];
 
     /// <summary>

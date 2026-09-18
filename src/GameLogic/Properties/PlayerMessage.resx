@@ -828,4 +828,13 @@
   <data name="JewelLuckBuffStillActive" xml:space="preserve">
     <value>Gem of Success is still active: all jewel upgrades succeed for another {0} minutes!</value>
   </data>
+  <data name="ScrabbleNoWord" xml:space="preserve">
+    <value>Type a word to guess, e.g. /scrabble hello.</value>
+  </data>
+  <data name="ScrabbleNoActiveGame" xml:space="preserve">
+    <value>There is no active Scrabble round right now.</value>
+  </data>
+  <data name="ScrabbleWrongGuess" xml:space="preserve">
+    <value>Wrong word. Try again!</value>
+  </data>
 </root>

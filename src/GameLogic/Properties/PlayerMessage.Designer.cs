@@ -2192,5 +2192,32 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("JewelLuckBuffStillActive", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Type a word to guess, e.g. /scrabble hello..
+        /// </summary>
+        public static string ScrabbleNoWord {
+            get {
+                return ResourceManager.GetString("ScrabbleNoWord", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to There is no active Scrabble round right now..
+        /// </summary>
+        public static string ScrabbleNoActiveGame {
+            get {
+                return ResourceManager.GetString("ScrabbleNoActiveGame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong word. Try again!.
+        /// </summary>
+        public static string ScrabbleWrongGuess {
+            get {
+                return ResourceManager.GetString("ScrabbleWrongGuess", resourceCulture);
+            }
+        }
     }
 }
