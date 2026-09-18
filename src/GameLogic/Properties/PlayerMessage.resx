@@ -747,6 +747,30 @@
   <data name="OfflineLevelingMuHelperNotRunning" xml:space="preserve">
     <value>MU Helper must be running to start offline leveling.</value>
   </data>
+  <data name="OfflineStoreNoCharacterSelected" xml:space="preserve">
+    <value>No character is selected.</value>
+  </data>
+  <data name="OfflineStoreMustBeAlive" xml:space="preserve">
+    <value>You must be alive to start an offline store.</value>
+  </data>
+  <data name="OfflineStoreNotOnMap" xml:space="preserve">
+    <value>You must be on a map to start an offline store.</value>
+  </data>
+  <data name="OfflineStoreNotInSafezone" xml:space="preserve">
+    <value>You must be in a safe zone to start an offline store.</value>
+  </data>
+  <data name="OfflineStoreStoreNotOpen" xml:space="preserve">
+    <value>Your personal store must be open (set prices and a store name first) to start an offline store.</value>
+  </data>
+  <data name="OfflineStoreAlreadyActive" xml:space="preserve">
+    <value>An offline session is already active for this account.</value>
+  </data>
+  <data name="OfflineStoreStarted" xml:space="preserve">
+    <value>Offline store started. Your store stays open for other players. Log back in to stop it.</value>
+  </data>
+  <data name="OfflineStoreFailed" xml:space="preserve">
+    <value>Could not start the offline store. Try again in a safe spot.</value>
+  </data>
   <data name="StatResetNotEnabled" xml:space="preserve">
     <value>Stat reset is not enabled.</value>
   </data>

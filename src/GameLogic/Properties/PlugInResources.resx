@@ -1218,6 +1218,12 @@
   <data name="OfflineLevelingChatCommandPlugIn_Description" xml:space="preserve">
     <value>Allows players to start offline leveling with /offlevel. The character stays in the world after the client disconnects and stops when the player logs back in.</value>
   </data>
+  <data name="OfflineStoreChatCommandPlugIn_Name" xml:space="preserve">
+    <value>Offline Store Command</value>
+  </data>
+  <data name="OfflineStoreChatCommandPlugIn_Description" xml:space="preserve">
+    <value>Allows players to leave their character standing in a safe zone with the personal store open after the client disconnects, so other players can buy from it.</value>
+  </data>
   <data name="AutoResetChatCommandPlugIn_Name" xml:space="preserve">
     <value>Auto Reset Command</value>
   </data>

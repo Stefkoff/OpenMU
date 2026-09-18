@@ -2005,6 +2005,78 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No character is selected..
+        /// </summary>
+        public static string OfflineStoreNoCharacterSelected {
+            get {
+                return ResourceManager.GetString("OfflineStoreNoCharacterSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be alive to start an offline store..
+        /// </summary>
+        public static string OfflineStoreMustBeAlive {
+            get {
+                return ResourceManager.GetString("OfflineStoreMustBeAlive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be on a map to start an offline store..
+        /// </summary>
+        public static string OfflineStoreNotOnMap {
+            get {
+                return ResourceManager.GetString("OfflineStoreNotOnMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be in a safe zone to start an offline store..
+        /// </summary>
+        public static string OfflineStoreNotInSafezone {
+            get {
+                return ResourceManager.GetString("OfflineStoreNotInSafezone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal store must be open (set prices and a store name first) to start an offline store..
+        /// </summary>
+        public static string OfflineStoreStoreNotOpen {
+            get {
+                return ResourceManager.GetString("OfflineStoreStoreNotOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An offline session is already active for this account..
+        /// </summary>
+        public static string OfflineStoreAlreadyActive {
+            get {
+                return ResourceManager.GetString("OfflineStoreAlreadyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline store started. Your store stays open for other players. Log back in to stop it..
+        /// </summary>
+        public static string OfflineStoreStarted {
+            get {
+                return ResourceManager.GetString("OfflineStoreStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start the offline store. Try again in a safe spot..
+        /// </summary>
+        public static string OfflineStoreFailed {
+            get {
+                return ResourceManager.GetString("OfflineStoreFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stat reset is not enabled..
         /// </summary>
         public static string StatResetNotEnabled {

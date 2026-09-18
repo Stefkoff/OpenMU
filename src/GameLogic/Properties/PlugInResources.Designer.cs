@@ -1625,7 +1625,25 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("OfflineLevelingChatCommandPlugIn_Description", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Offline Store Command.
+        /// </summary>
+        public static string OfflineStoreChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("OfflineStoreChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Allows players to leave their character standing in a safe zone with the personal store open after the client disconnects, so other players can buy from it..
+        /// </summary>
+        public static string OfflineStoreChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("OfflineStoreChatCommandPlugIn_Description", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages..
         /// </summary>
