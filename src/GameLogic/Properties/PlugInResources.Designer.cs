@@ -1690,6 +1690,42 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scrabble Game.
+        /// </summary>
+        public static string ScrabbleGamePlugIn_Name {
+            get {
+                return ResourceManager.GetString("ScrabbleGamePlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled word-guess game: a scrambled word is announced to all players, the first to guess it with /scrabble wins the round&apos;s reward (zen or a configured item). Configurable rounds, rewards and daily start times..
+        /// </summary>
+        public static string ScrabbleGamePlugIn_Description {
+            get {
+                return ResourceManager.GetString("ScrabbleGamePlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scrabble Command.
+        /// </summary>
+        public static string ScrabbleChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("ScrabbleChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handles the /scrabble chat command: submits a word guess to the active Scrabble round..
+        /// </summary>
+        public static string ScrabbleChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("ScrabbleChatCommandPlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start message.
         /// </summary>
         public static string BoxOfKundumEventConfiguration_StartMessage_Name {

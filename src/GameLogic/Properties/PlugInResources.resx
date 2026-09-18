@@ -1242,6 +1242,18 @@
   <data name="BoxOfKundumEventPlugIn_Description" xml:space="preserve">
     <value>Drops a configurable amount of Box of Luck (Box of Kundum) items at configured times and locations, fires fireworks at the drop point and announces the event to all players.</value>
   </data>
+  <data name="ScrabbleGamePlugIn_Name" xml:space="preserve">
+    <value>Scrabble Game</value>
+  </data>
+  <data name="ScrabbleGamePlugIn_Description" xml:space="preserve">
+    <value>Scheduled word-guess game: a scrambled word is announced to all players, the first to guess it with /scrabble wins the round's reward (zen or a configured item). Configurable rounds, rewards and daily start times.</value>
+  </data>
+  <data name="ScrabbleChatCommandPlugIn_Name" xml:space="preserve">
+    <value>Scrabble Command</value>
+  </data>
+  <data name="ScrabbleChatCommandPlugIn_Description" xml:space="preserve">
+    <value>Handles the /scrabble chat command: submits a word guess to the active Scrabble round.</value>
+  </data>
   <data name="BoxOfKundumEventConfiguration_StartMessage_Name" xml:space="preserve">
     <value>Start message</value>
   </data>
