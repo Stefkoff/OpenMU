@@ -162,7 +162,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
         var config = this.Configuration ?? (ScrabbleConfiguration)this.CreateDefaultConfig();
         var round = config.Rounds.ElementAt(state.CurrentRoundIndex);
 
-        var rewardMessage = $"Player {state.WinnerName} won round {state.CurrentRoundIndex + 1}! The word was: {state.CurrentWord}.";
+        var rewardMessage = $"Player {state.WinnerName} won round {state.CurrentRoundIndex + 1}!";
         var granted = await this.TryGrantRewardAsync(player, round, state.CurrentRoundIndex).ConfigureAwait(false);
         rewardMessage += $" Reward: {granted}.";
         await this.BroadcastAsync(state, rewardMessage).ConfigureAwait(false);
@@ -240,7 +240,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
     {
         var timedOutRound = state.CurrentRoundIndex;
         state.CurrentRoundIndex = -1;
-        var message = $"Nobody guessed round {timedOutRound + 1}! The word was: {state.CurrentWord ?? "?"}.";
+        var message = $"Nobody guessed round {timedOutRound + 1}!";
         await this.BroadcastAsync(state, message).ConfigureAwait(false);
 
         var config = this.Configuration ?? (ScrabbleConfiguration)this.CreateDefaultConfig();
