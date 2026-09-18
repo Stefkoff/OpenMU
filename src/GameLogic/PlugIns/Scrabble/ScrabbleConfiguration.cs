@@ -22,7 +22,21 @@ public class ScrabbleConfiguration : PeriodicTaskConfiguration
     [MemberOfAggregate]
     [ScaffoldColumn(true)]
     [MaxLength(5, ErrorMessage = "At most 5 rounds per game.")]
-    public IList<ScrabbleRoundConfiguration> Rounds { get; set; } = new List<ScrabbleRoundConfiguration>();
+    public ICollection<ScrabbleRoundConfiguration> Rounds { get; set; } = new List<ScrabbleRoundConfiguration>();
+}
+
+/// <summary>
+/// A single word of the pool. Wrapper class so the admin panel can render the pool as an
+/// editable list (the panel's generic list editor handles <see cref="ICollection{T}"/> of classes).
+/// </summary>
+public class ScrabbleWordConfiguration
+{
+    /// <summary>
+    /// Gets or sets the word (the unscrambled answer).
+    /// </summary>
+    [Display(Name = "Word", Description = "The correct answer; one of these is picked per round.")]
+    [Required]
+    public string Word { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -34,8 +48,10 @@ public class ScrabbleRoundConfiguration
     /// Gets or sets the pool of words; one is picked at random per round.
     /// </summary>
     [Display(Name = "Words", Description = "Word pool; one word is picked randomly per round.")]
+    [MemberOfAggregate]
+    [ScaffoldColumn(true)]
     [MinLength(1, ErrorMessage = "Add at least one word.")]
-    public IList<string> Words { get; set; } = new List<string>();
+    public ICollection<ScrabbleWordConfiguration> Words { get; set; } = new List<ScrabbleWordConfiguration>();
 
     /// <summary>
     /// Gets or sets the reward item and its attributes. This is a full item configuration:
@@ -43,6 +59,7 @@ public class ScrabbleRoundConfiguration
     /// options, skill, ancient set and ancient bonus level.
     /// </summary>
     [Display(Name = "Reward", Description = "The item granted to the winner of this round.")]
+    [MemberOfAggregate]
     public ScrabbleRewardConfiguration? Reward { get; set; }
 }
 

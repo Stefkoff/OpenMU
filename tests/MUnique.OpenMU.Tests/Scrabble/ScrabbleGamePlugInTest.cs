@@ -26,9 +26,9 @@ public class ScrabbleGamePlugInTest
             PreStartMessageDelay = TimeSpan.Zero, // no wait in tests
             Rounds =
             [
-                new() { Words = new List<string> { "hello", "world" }, Reward = new() { RewardZen = 1000 } },
-                new() { Words = new List<string> { "apple", "orange" }, Reward = new() { RewardZen = 1000 } },
-                new() { Words = new List<string> { "banana", "cherry" }, Reward = new() { RewardZen = 1000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "hello" }, new() { Word = "world" } }, Reward = new() { RewardZen = 1000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "apple" }, new() { Word = "orange" } }, Reward = new() { RewardZen = 1000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "banana" }, new() { Word = "cherry" } }, Reward = new() { RewardZen = 1000 } },
             ],
         };
     }

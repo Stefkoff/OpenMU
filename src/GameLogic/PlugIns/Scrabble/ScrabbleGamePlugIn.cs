@@ -50,11 +50,11 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
             Timetable = new List<TimeOnly> { new(20, 0), new(21, 0), new(22, 0) },
             Rounds =
             [
-                new() { Words = new List<string> { "cat", "dog", "sun" }, Reward = new() { RewardZen = 1_000_000 } },
-                new() { Words = new List<string> { "hello", "world", "apple" }, Reward = new() { RewardZen = 2_000_000 } },
-                new() { Words = new List<string> { "banana", "orange", "purple" }, Reward = new() { RewardZen = 3_000_000 } },
-                new() { Words = new List<string> { "elephant", "guitar", "rainbow" }, Reward = new() { RewardZen = 4_000_000 } },
-                new() { Words = new List<string> { "adventure", "chocolate", "dinosaur" }, Reward = new() { RewardZen = 5_000_000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "cat" }, new() { Word = "dog" }, new() { Word = "sun" } }, Reward = new() { RewardZen = 1_000_000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "hello" }, new() { Word = "world" }, new() { Word = "apple" } }, Reward = new() { RewardZen = 2_000_000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "banana" }, new() { Word = "orange" }, new() { Word = "purple" } }, Reward = new() { RewardZen = 3_000_000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "elephant" }, new() { Word = "guitar" }, new() { Word = "rainbow" } }, Reward = new() { RewardZen = 4_000_000 } },
+                new() { Words = new List<ScrabbleWordConfiguration> { new() { Word = "adventure" }, new() { Word = "chocolate" }, new() { Word = "dinosaur" } }, Reward = new() { RewardZen = 5_000_000 } },
             ],
         };
     }
@@ -134,7 +134,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
                 // Mid-round reminder: reprint the scrambled word once at the 30-second mark
                 // (only if the round hasn't been won yet).
                 state.MidRoundReminderSent = true;
-                await this.BroadcastAsync(state, $"Round {state.CurrentRoundIndex + 1}: Unscramble: {state.ScrambledWord} (30 seconds left!)").ConfigureAwait(false);
+                await this.BroadcastAsync(state, $"Round {state.CurrentRoundIndex + 1}: Unscramble: {state.ScrambledWord} (30 seconds left!) - answer with /scrabble <word>!").ConfigureAwait(false);
             }
 
             return;
@@ -160,7 +160,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
         state.RoundWon = true;
         state.WinnerName = player.SelectedCharacter?.Name ?? player.Name;
         var config = this.Configuration ?? (ScrabbleConfiguration)this.CreateDefaultConfig();
-        var round = config.Rounds[state.CurrentRoundIndex];
+        var round = config.Rounds.ElementAt(state.CurrentRoundIndex);
 
         var rewardMessage = $"Player {state.WinnerName} won round {state.CurrentRoundIndex + 1}! The word was: {state.CurrentWord}.";
         var granted = await this.TryGrantRewardAsync(player, round, state.CurrentRoundIndex).ConfigureAwait(false);
@@ -207,8 +207,8 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
             return;
         }
 
-        var round = config.Rounds[roundIndex];
-        var word = ScrambleHelper.PickWord(round.Words, Random);
+        var round = config.Rounds.ElementAt(roundIndex);
+        var word = ScrambleHelper.PickWord(round.Words.Select(w => w.Word).ToList(), Random);
         if (word is null)
         {
             return;
@@ -222,7 +222,7 @@ public class ScrabbleGamePlugIn : PeriodicTaskBasePlugIn<ScrabbleConfiguration, 
         state.MidRoundReminderSent = false;
         state.WinnerName = null;
 
-        _ = this.BroadcastAsync(state, $"Round {roundIndex + 1}: Unscramble: {state.ScrambledWord}").ConfigureAwait(false);
+        _ = this.BroadcastAsync(state, $"Round {roundIndex + 1}: Unscramble: {state.ScrambledWord} - answer with /scrabble <word>!").ConfigureAwait(false);
     }
 
     private void StartNextRound(ScrabbleGameServerState state, ScrabbleConfiguration config)
