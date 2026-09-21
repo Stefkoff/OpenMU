@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MUnique.OpenMU.GameLogic;
 using MUnique.OpenMU.Interfaces;
+using System.Threading;
 
 /// <summary>
 /// A minimal public endpoint which reports the current server status without any authentication.
