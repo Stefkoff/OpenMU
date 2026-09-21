@@ -21,6 +21,8 @@ RUN dotnet publish "MUnique.OpenMU.Web.PublicSite.csproj" \
     -o /app/publish \
     -p:ci=true
 
+FROM build AS publish
+
 FROM base AS final
 WORKDIR /app
 
