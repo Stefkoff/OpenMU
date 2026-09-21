@@ -1,6 +1,9 @@
 namespace MUnique.OpenMU.Web.PublicSite;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MUnique.OpenMU.Interfaces;
+using MUnique.OpenMU.Persistence.EntityFramework.Json;
+using MUnique.OpenMU.PlugIns;
 using MUnique.OpenMU.Web.PublicSite.Models;
 using MUnique.OpenMU.Web.PublicSite.Services;
 
@@ -15,6 +18,12 @@ public class Program
     /// <param name="args">The command line arguments.</param>
     public static void Main(string[] args)
     {
+        // The game configuration JSON (rebuilt by the json query) encodes postgres
+        // bytea values as \x hex - register the hex converter like Startup does,
+        // otherwise the default Base64 converter throws on every byte[] token.
+        JsonConverterRegistry.RegisterConverter(new LocalizedStringJsonConverter());
+        JsonConverterRegistry.RegisterConverter(new BinaryAsHexJsonConverter());
+
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorPages();
