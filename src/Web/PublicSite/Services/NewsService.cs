@@ -53,7 +53,7 @@ public sealed class NewsService
         try
         {
             var items = File.Exists(this.FilePath)
-                ? JsonSerializer.Deserialize<List<NewsItem>>(File.ReadAllText(this.FilePath), this.ReadOptions) ?? []
+                ? JsonSerializer.Deserialize<List<NewsItem>>(File.ReadAllText(this.FilePath), NewsService.ReadOptions) ?? []
                 : [];
             foreach (var item in items)
             {
