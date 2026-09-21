@@ -33,12 +33,12 @@
                 <p class="card-text">
                     @if (Model.ExperienceRate.HasValue)
                     {
-                        <span class="fs-3 fw-bold">@(Model.ExperienceRate.Value.ToString("0"))x</span> experience rate
+                        <span class="fs-3 fw-bold">@(Model.ExperienceRate.Value.ToString("0"))x</span><text> experience rate</text>
                     }
                     @if (Model.MasterExperienceRate.HasValue)
                     {
                         <br />
-                        <span class="fs-5">@(Model.MasterExperienceRate.Value.ToString("0"))x</span> master experience
+                        <span class="fs-5">@(Model.MasterExperienceRate.Value.ToString("0"))x</span><text> master experience</text>
                     }
                     @if (!Model.ExperienceRate.HasValue)
                     {
