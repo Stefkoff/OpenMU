@@ -5,6 +5,7 @@
 namespace MUnique.OpenMU.GameLogic.PlayerActions.PlayerStore;
 
 using MUnique.OpenMU.GameLogic.PlugIns;
+using MUnique.OpenMU.GameLogic.Offline;
 using MUnique.OpenMU.GameLogic.Views;
 using MUnique.OpenMU.GameLogic.Views.Inventory;
 using MUnique.OpenMU.Interfaces;
@@ -129,6 +130,13 @@ public class BuyRequestAction
             else
             {
                 await this._closeStoreAction.CloseStoreAsync(requestedPlayer).ConfigureAwait(false);
+                if (requestedPlayer is OfflineStorePlayer storePlayer
+                    && storePlayer.Account?.LoginName is { } loginName)
+                {
+                    // The last item was sold: end the whole offline store session, so the
+                    // ghost disappears and the account is released immediately.
+                    await storePlayer.GameContext.OfflinePlayerManager.StopAsync(loginName).ConfigureAwait(false);
+                }
             }
         }
     }

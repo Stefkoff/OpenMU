@@ -1625,7 +1625,25 @@ namespace MUnique.OpenMU.GameLogic.Properties {
                 return ResourceManager.GetString("OfflineLevelingChatCommandPlugIn_Description", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Offline Store Command.
+        /// </summary>
+        public static string OfflineStoreChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("OfflineStoreChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Allows players to leave their character standing in a safe zone with the personal store open after the client disconnects, so other players can buy from it..
+        /// </summary>
+        public static string OfflineStoreChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("OfflineStoreChatCommandPlugIn_Description", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages..
         /// </summary>
@@ -1668,6 +1686,42 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         public static string BoxOfKundumEventPlugIn_Description {
             get {
                 return ResourceManager.GetString("BoxOfKundumEventPlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scrabble Game.
+        /// </summary>
+        public static string ScrabbleGamePlugIn_Name {
+            get {
+                return ResourceManager.GetString("ScrabbleGamePlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheduled word-guess game: a scrambled word is announced to all players, the first to guess it with /scrabble wins the round&apos;s reward (zen or a configured item). Configurable rounds, rewards and daily start times..
+        /// </summary>
+        public static string ScrabbleGamePlugIn_Description {
+            get {
+                return ResourceManager.GetString("ScrabbleGamePlugIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scrabble Command.
+        /// </summary>
+        public static string ScrabbleChatCommandPlugIn_Name {
+            get {
+                return ResourceManager.GetString("ScrabbleChatCommandPlugIn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handles the /scrabble chat command: submits a word guess to the active Scrabble round..
+        /// </summary>
+        public static string ScrabbleChatCommandPlugIn_Description {
+            get {
+                return ResourceManager.GetString("ScrabbleChatCommandPlugIn_Description", resourceCulture);
             }
         }
         
@@ -3668,6 +3722,60 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         public static string CastleSiegeLifeStoneConsumeHandlerPlugIn_Name {
             get {
                 return ResourceManager.GetString("CastleSiegeLifeStoneConsumeHandlerPlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success consume handler.
+        /// </summary>
+        public static string JewelLuckBuffConsumeHandlerPlugIn_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffConsumeHandlerPlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Consumes the Gem of Success item and activates the 1-hour jewel upgrade success buff. A second use while active is refused..
+        /// </summary>
+        public static string JewelLuckBuffConsumeHandlerPlugIn_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffConsumeHandlerPlugIn_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Buff duration (seconds).
+        /// </summary>
+        public static string JewelLuckBuffDuration_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffDuration_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to How long the 100% jewel upgrade success buff lasts, in seconds..
+        /// </summary>
+        public static string JewelLuckBuffDuration_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffDuration_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success state handler.
+        /// </summary>
+        public static string JewelLuckBuffStatePlugIn_Name {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStatePlugIn_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Restores the Gem of Success indicator effect with its remaining duration when a character enters the world..
+        /// </summary>
+        public static string JewelLuckBuffStatePlugIn_Description {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStatePlugIn_Description", resourceCulture);
             }
         }
     }

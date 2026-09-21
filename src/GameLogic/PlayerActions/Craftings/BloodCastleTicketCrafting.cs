@@ -15,7 +15,7 @@ public class BloodCastleTicketCrafting : BaseEventTicketCrafting
     /// Initializes a new instance of the <see cref="BloodCastleTicketCrafting"/> class.
     /// </summary>
     public BloodCastleTicketCrafting()
-        : base("Invisibility Cloak", "Scroll of Archangel", "Blood Bone")
+        : base("BC Ticket", "Scroll of Archangel", "Blood Bone")
     {
     }
 

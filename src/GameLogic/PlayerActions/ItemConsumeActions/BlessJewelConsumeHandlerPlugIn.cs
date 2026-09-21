@@ -35,7 +35,7 @@ public class BlessJewelConsumeHandlerPlugIn : UpgradeItemLevelJewelConsumeHandle
     }
 
     /// <inheritdoc/>
-    protected override bool ModifyItem(Item item, IContext persistenceContext)
+    protected override bool ModifyItem(Player player, Item item, IContext persistenceContext)
     {
         if (this.Configuration?.RepairTargetItems.Contains(item.Definition!) is true
             && item.Durability < item.GetMaximumDurabilityOfOnePiece())
@@ -44,6 +44,6 @@ public class BlessJewelConsumeHandlerPlugIn : UpgradeItemLevelJewelConsumeHandle
             return true;
         }
 
-        return base.ModifyItem(item, persistenceContext);
+        return base.ModifyItem(player, item, persistenceContext);
     }
 }

@@ -10,6 +10,7 @@ using MUnique.OpenMU.GameLogic.Views.Inventory;
 using MUnique.OpenMU.Network;
 using MUnique.OpenMU.Network.Packets.ServerToClient;
 using MUnique.OpenMU.PlugIns;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// The default implementation of the <see cref="IItemAppearPlugIn"/> which is forwarding everything to the game client with specific data packets.
@@ -45,6 +46,12 @@ public class ItemAppearPlugIn : IItemAppearPlugIn
             {
                 InventorySlot = newItem.ItemSlot,
             };
+            this._player.Logger.LogInformation(
+                "PICKUP_TRACE ack-sent item={Item} level={Level} slot={Slot} char={Char}",
+                newItem.Definition?.Name,
+                newItem.Level,
+                newItem.ItemSlot,
+                this._player.SelectedCharacter?.Name ?? "?");
             var itemSize = itemSerializer.SerializeItem(packet.ItemData, newItem);
 
             var actualSize = ItemAddedToInventoryRef.GetRequiredSize(itemSize);

@@ -21,6 +21,7 @@ using MUnique.OpenMU.PlugIns;
 /// keeps leveling the character. The automatic reset behaves like the regular reset
 /// (see <see cref="ResetCharacterAction"/>): the same reset configuration and point
 /// progression are used, but no costs are consumed and the character stays in place.
+/// It can be disabled with <c>/autoreset off</c>.
 /// </summary>
 [Guid("A7C4B3E1-5F6D-4A2B-9C8E-0D1F2E3A4B5C")]
 [PlugIn]
@@ -28,7 +29,7 @@ using MUnique.OpenMU.PlugIns;
     Name = nameof(PlugInResources.AutoResetChatCommandPlugIn_Name),
     Description = nameof(PlugInResources.AutoResetChatCommandPlugIn_Description),
     ResourceType = typeof(PlugInResources))]
-[ChatCommandHelp(Command, "Sets the stat point distribution of the automatic character resets and activates them.", typeof(AutoResetChatCommandArgs))]
+[ChatCommandHelp(Command, "Sets the stat point distribution of the automatic character resets and activates them; use '/autoreset off' to disable them.", typeof(AutoResetChatCommandArgs))]
 public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoResetChatCommandArgs>, IPlayerStateChangedPlugIn, ICharacterLevelUpPlugIn
 {
     private const string Command = "/autoreset";
@@ -38,6 +39,32 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
 
     /// <inheritdoc />
     public override CharacterStatus MinCharacterStatusRequirement => CharacterStatus.Normal;
+
+    /// <inheritdoc />
+    public override async ValueTask HandleCommandAsync(Player player, string command)
+    {
+        if (!IsOffCommand(command))
+        {
+            await base.HandleCommandAsync(player, command).ConfigureAwait(false);
+            return;
+        }
+
+        try
+        {
+            if (player.SelectedCharacter is not { } character)
+            {
+                await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.NotEnteredTheGame)).ConfigureAwait(false);
+                return;
+            }
+
+            AutoDistributionManager.Remove(character.Id);
+            await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.AutoResetDeactivated)).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            player.Logger.LogError(ex, $"Unexpected error handling the chat command '{this.Key}'.");
+        }
+    }
 
     /// <inheritdoc />
     protected override async ValueTask DoHandleCommandAsync(Player player, AutoResetChatCommandArgs arguments)
@@ -114,6 +141,12 @@ public sealed class AutoResetChatCommandPlugIn : ChatCommandPlugInBase<AutoReset
         {
             AutoDistributionManager.RemoveOnLogout(player);
         }
+    }
+
+    private static bool IsOffCommand(string command)
+    {
+        var arguments = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return arguments.Length == 2 && arguments[1].Equals("off", StringComparison.OrdinalIgnoreCase);
     }
 
     private async ValueTask UpdateAfterResetAsync(Player player, AutoResetResult result)

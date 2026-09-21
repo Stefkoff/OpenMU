@@ -216,7 +216,9 @@ public sealed class DroppedItem : AsyncDisposable, ILocateable
 
             if (!await player.Inventory!.AddItemAsync((byte)slot, this.Item).ConfigureAwait(false))
             {
-                player.Logger.LogDebug("Item could not be added to the inventory, Player {0}, Item {1}", player, this);
+                player.Logger.LogInformation(
+                    "PICKUP_TRACE add-failed item={Item} level={Level} slot={Slot} char={Char}",
+                    this.Item.Definition?.Name, this.Item.Level, slot, player.SelectedCharacter?.Name ?? "?");
 
                 if (!itemWasTemporary)
                 {
@@ -237,7 +239,10 @@ public sealed class DroppedItem : AsyncDisposable, ILocateable
             this._availableToPick = false;
         }
 
-        player.Logger.LogDebug("Item '{0}' was picked up by player '{1}' and added to his inventory.", this, player);
+        player.Logger.LogInformation(
+            "PICKUP_TRACE added item={Item} level={Level} slot={Slot} char={Char} invCount={Count}",
+            this.Item.Definition?.Name, this.Item.Level, this.Item.ItemSlot,
+            player.SelectedCharacter?.Name ?? "?", player.Inventory?.Items.Count());
         await this.DisposeAsync().ConfigureAwait(false);
 
         return true;

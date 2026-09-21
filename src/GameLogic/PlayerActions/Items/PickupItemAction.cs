@@ -24,6 +24,10 @@ public class PickupItemAction
     {
         var droppedLocateable = player.CurrentMap?.GetDrop(dropId);
 
+        player.Logger.LogInformation(
+            "PICKUP_TRACE request drop={DropId} char={Char} located={Located}",
+            dropId, player.SelectedCharacter?.Name ?? "?", droppedLocateable is not null);
+
         switch (droppedLocateable)
         {
             case DroppedMoney droppedMoney:
@@ -138,6 +142,10 @@ public class PickupItemAction
         var slot = player.Inventory?.CheckInvSpace(droppedItem.Item);
         if (slot < InventoryConstants.EquippableSlotsCount)
         {
+            player.Logger.LogInformation(
+                "PICKUP_TRACE no-slot item={Item} level={Level} char={Char} invCount={Count}",
+                droppedItem.Item.Definition?.Name, droppedItem.Item.Level,
+                player.SelectedCharacter?.Name ?? "?", player.Inventory?.Items.Count());
             return (false, null);
         }
 
@@ -159,6 +167,10 @@ public class PickupItemAction
         }
 
         var result = await droppedItem.TryPickUpByAsync(player).ConfigureAwait(false);
+        player.Logger.LogInformation(
+            "PICKUP_TRACE result item={Item} level={Level} slot={Slot} success={Success} char={Char} invCount={Count}",
+            droppedItem.Item.Definition?.Name, droppedItem.Item.Level, slot, result.Success,
+            player.SelectedCharacter?.Name ?? "?", player.Inventory?.Items.Count());
         if (result.Success)
         {
             await player.OnPickedUpItemAsync(droppedItem).ConfigureAwait(false);

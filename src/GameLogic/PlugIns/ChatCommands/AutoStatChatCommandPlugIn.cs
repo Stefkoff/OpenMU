@@ -18,7 +18,7 @@ using MUnique.OpenMU.PlugIns;
 /// 10% to energy and 0% to command, as soon as they reach or exceed 1000 points.
 /// The setting stays active until the character logs out, and it also applies while
 /// an offline leveling session (<see cref="OfflineLevelingChatCommandPlugIn"/>) keeps
-/// leveling the character.
+/// leveling the character. It can be disabled with <c>/autostat off</c>.
 /// </summary>
 [Guid("B8D5C4F2-6E7A-4B3C-9F1D-2A3B4C5D6E7F")]
 [PlugIn]
@@ -26,7 +26,7 @@ using MUnique.OpenMU.PlugIns;
     Name = nameof(PlugInResources.AutoStatChatCommandPlugIn_Name),
     Description = nameof(PlugInResources.AutoStatChatCommandPlugIn_Description),
     ResourceType = typeof(PlugInResources))]
-[ChatCommandHelp(Command, "Distributes the level-up points automatically once they reach the given threshold.", typeof(AutoStatChatCommandArgs))]
+[ChatCommandHelp(Command, "Distributes the level-up points automatically once they reach the given threshold; use '/autostat off' to disable it.", typeof(AutoStatChatCommandArgs))]
 public sealed class AutoStatChatCommandPlugIn : ChatCommandPlugInBase<AutoStatChatCommandArgs>, IPlayerStateChangedPlugIn, ICharacterLevelUpPlugIn
 {
     private const string Command = "/autostat";
@@ -36,6 +36,32 @@ public sealed class AutoStatChatCommandPlugIn : ChatCommandPlugInBase<AutoStatCh
 
     /// <inheritdoc />
     public override CharacterStatus MinCharacterStatusRequirement => CharacterStatus.Normal;
+
+    /// <inheritdoc />
+    public override async ValueTask HandleCommandAsync(Player player, string command)
+    {
+        if (!IsOffCommand(command))
+        {
+            await base.HandleCommandAsync(player, command).ConfigureAwait(false);
+            return;
+        }
+
+        try
+        {
+            if (player.SelectedCharacter is not { } character)
+            {
+                await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.NotEnteredTheGame)).ConfigureAwait(false);
+                return;
+            }
+
+            AutoDistributionManager.SetStatDistribution(character.Id, null, null);
+            await player.ShowLocalizedBlueMessageAsync(nameof(PlayerMessage.AutoStatDeactivated)).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            player.Logger.LogError(ex, $"Unexpected error handling the chat command '{this.Key}'.");
+        }
+    }
 
     /// <inheritdoc />
     protected override async ValueTask DoHandleCommandAsync(Player player, AutoStatChatCommandArgs arguments)
@@ -118,6 +144,12 @@ public sealed class AutoStatChatCommandPlugIn : ChatCommandPlugInBase<AutoStatCh
         {
             AutoDistributionManager.RemoveOnLogout(player);
         }
+    }
+
+    private static bool IsOffCommand(string command)
+    {
+        var arguments = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return arguments.Length == 2 && arguments[1].Equals("off", StringComparison.OrdinalIgnoreCase);
     }
 
     private async ValueTask UpdateAfterStatAsync(Player player, AutoStatResult result)

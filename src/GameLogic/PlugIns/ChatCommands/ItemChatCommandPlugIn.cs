@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using MUnique.OpenMU.DataModel.Configuration.Items;
 using MUnique.OpenMU.GameLogic.Attributes;
 using MUnique.OpenMU.GameLogic.PlugIns.ChatCommands.Arguments;
+using MUnique.OpenMU.Persistence;
 using MUnique.OpenMU.PlugIns;
 
 /// <summary>
@@ -66,24 +67,44 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         return (true, itemDefinition);
     }
 
-    private static Item CreateItem(DataModel.Configuration.Items.ItemDefinition itemDefinition, ItemChatCommandArgs arguments)
+    public static Item CreateItem(DataModel.Configuration.Items.ItemDefinition itemDefinition, ItemChatCommandArgs arguments)
     {
         var item = new TemporaryItem();
+        return CreateItem(item, itemDefinition, arguments);
+    }
+
+    /// <summary>
+    /// Applies the full /item attribute set (definition, level, durability, sockets, skill,
+    /// option, luck, excellent and ancient options) to the given item instance.
+    /// </summary>
+    /// <param name="item">The item to configure. Usually a <see cref="TemporaryItem"/> for ground drops,
+    /// or a persistence-created item when adding to an inventory.</param>
+    /// <param name="itemDefinition">The item definition.</param>
+    /// <param name="arguments">The attributes.</param>
+    /// <param name="persistenceContext">The persistence context to create option links through.
+    /// When <c>null</c> (the /item ground-drop path) links are created as plain objects;
+    /// when given, links are created as persistence entities so the inventory storage accepts them.</param>
+    /// <returns>The configured item.</returns>
+    public static Item CreateItem(Item item, DataModel.Configuration.Items.ItemDefinition itemDefinition, ItemChatCommandArgs arguments, IContext? persistenceContext = null)
+    {
         item.Definition = itemDefinition;
         item.Durability = item.IsStackable() ? 1 : item.Definition.Durability;
         item.HasSkill = item.Definition.Skill != null && arguments.Skill;
         item.Level = arguments.Level;
         item.SocketCount = item.Definition.MaximumSockets;
 
-        AddOption(item, arguments);
-        AddLuckOption(item, arguments);
-        AddExcellentOptions(item, arguments);
-        AddAncientBonusOption(item, arguments);
+        AddOption(item, arguments, persistenceContext);
+        AddLuckOption(item, arguments, persistenceContext);
+        AddExcellentOptions(item, arguments, persistenceContext);
+        AddAncientBonusOption(item, arguments, persistenceContext);
 
         return item;
     }
 
-    private static void AddOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static ItemOptionLink CreateOptionLink(IContext? persistenceContext)
+        => persistenceContext is null ? new ItemOptionLink() : persistenceContext.CreateNew<ItemOptionLink>();
+
+    private static void AddOption(Item item, ItemChatCommandArgs arguments, IContext? persistenceContext)
     {
         if (item.Definition != null && arguments.Opt > 0)
         {
@@ -98,21 +119,27 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
                 if ((arguments.Opt & 1) > 0)
                 {
                     itemOption = allOptions.First(o => o.PowerUpDefinition!.TargetAttribute == Stats.DamageReceiveDecrement);
-                    var dinoOptionLink = new ItemOptionLink { ItemOption = itemOption, Level = 1 };
+                    var dinoOptionLink = CreateOptionLink(persistenceContext);
+                    dinoOptionLink.ItemOption = itemOption;
+                    dinoOptionLink.Level = 1;
                     item.ItemOptions.Add(dinoOptionLink);
                 }
 
                 if ((arguments.Opt & 2) > 0)
                 {
                     itemOption = allOptions.First(o => o.PowerUpDefinition!.TargetAttribute == Stats.MaximumAbility);
-                    var dinoOptionLink = new ItemOptionLink { ItemOption = itemOption, Level = 2 };
+                    var dinoOptionLink = CreateOptionLink(persistenceContext);
+                    dinoOptionLink.ItemOption = itemOption;
+                    dinoOptionLink.Level = 2;
                     item.ItemOptions.Add(dinoOptionLink);
                 }
 
                 if ((arguments.Opt & 4) > 0)
                 {
                     itemOption = allOptions.First(o => o.PowerUpDefinition!.TargetAttribute == Stats.AttackSpeedAny);
-                    var dinoOptionLink = new ItemOptionLink { ItemOption = itemOption, Level = 4 };
+                    var dinoOptionLink = CreateOptionLink(persistenceContext);
+                    dinoOptionLink.ItemOption = itemOption;
+                    dinoOptionLink.Level = 4;
                     item.ItemOptions.Add(dinoOptionLink);
                 }
             }
@@ -120,28 +147,28 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
             {
                 itemOption = allOptions.First();
                 var level = arguments.Opt;
-                var optionLink = new ItemOptionLink { ItemOption = itemOption, Level = level };
+                var optionLink = CreateOptionLink(persistenceContext);
+                optionLink.ItemOption = itemOption;
+                optionLink.Level = level;
                 item.ItemOptions.Add(optionLink);
             }
         }
     }
 
-    private static void AddLuckOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddLuckOption(Item item, ItemChatCommandArgs arguments, IContext? persistenceContext)
     {
         if (item.Definition != null && arguments.Luck)
         {
-            var optionLink = new ItemOptionLink
-            {
-                ItemOption = item.Definition.PossibleItemOptions
-                    .SelectMany(o => o.PossibleOptions)
-                    .First(o => o.OptionType == ItemOptionTypes.Luck),
-            };
+            var optionLink = CreateOptionLink(persistenceContext);
+            optionLink.ItemOption = item.Definition.PossibleItemOptions
+                .SelectMany(o => o.PossibleOptions)
+                .First(o => o.OptionType == ItemOptionTypes.Luck);
 
             item.ItemOptions.Add(optionLink);
         }
     }
 
-    private static void AddExcellentOptions(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddExcellentOptions(Item item, ItemChatCommandArgs arguments, IContext? persistenceContext)
     {
         if (item.Definition != null && arguments.ExcellentNumber > 0)
         {
@@ -154,7 +181,8 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
             ushort appliedOptions = 0;
             foreach (var excellentOption in excellentOptions)
             {
-                var optionLink = new ItemOptionLink { ItemOption = excellentOption };
+                var optionLink = CreateOptionLink(persistenceContext);
+                optionLink.ItemOption = excellentOption;
                 item.ItemOptions.Add(optionLink);
                 appliedOptions++;
             }
@@ -164,13 +192,15 @@ public class ItemChatCommandPlugIn : ChatCommandPlugInBase<ItemChatCommandArgs>
         }
     }
 
-    private static void AddAncientBonusOption(TemporaryItem item, ItemChatCommandArgs arguments)
+    private static void AddAncientBonusOption(Item item, ItemChatCommandArgs arguments, IContext? persistenceContext)
     {
         if (item.Definition != null && arguments.Ancient > 0
                                     && item.Definition.PossibleItemSetGroups.FirstOrDefault(g => g.Items.Any(i => i.ItemDefinition == item.Definition && i.AncientSetDiscriminator == arguments.Ancient)) is { } ancientSet
                                     && ancientSet.Items.FirstOrDefault(i => i.ItemDefinition == item.Definition) is { } itemOfItemSet)
         {
-            var optionLink = new ItemOptionLink { ItemOption = itemOfItemSet.BonusOption, Level = arguments.AncientBonusLevel };
+            var optionLink = CreateOptionLink(persistenceContext);
+            optionLink.ItemOption = itemOfItemSet.BonusOption;
+            optionLink.Level = arguments.AncientBonusLevel;
             item.ItemOptions.Add(optionLink);
             item.ItemSetGroups.Add(itemOfItemSet);
         }

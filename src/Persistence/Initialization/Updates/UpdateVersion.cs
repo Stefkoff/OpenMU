@@ -579,4 +579,14 @@ public enum UpdateVersion
     /// The version of the <see cref="AddKanturuMapContentUpdatePlugIn"/>.
     /// </summary>
     AddKanturuMapContent = 114,
+
+    /// <summary>
+    /// The version of the <see cref="AddClassStarterStoresPlugIn"/>.
+    /// </summary>
+    AddClassStarterStores = 115,
+
+    /// <summary>
+    /// The version of the <see cref="AddJewelLuckFeaturePlugIn"/>.
+    /// </summary>
+    AddJewelLuckFeature = 116,
 }

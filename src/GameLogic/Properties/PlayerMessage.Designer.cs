@@ -2005,6 +2005,78 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No character is selected..
+        /// </summary>
+        public static string OfflineStoreNoCharacterSelected {
+            get {
+                return ResourceManager.GetString("OfflineStoreNoCharacterSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be alive to start an offline store..
+        /// </summary>
+        public static string OfflineStoreMustBeAlive {
+            get {
+                return ResourceManager.GetString("OfflineStoreMustBeAlive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be on a map to start an offline store..
+        /// </summary>
+        public static string OfflineStoreNotOnMap {
+            get {
+                return ResourceManager.GetString("OfflineStoreNotOnMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be in a safe zone to start an offline store..
+        /// </summary>
+        public static string OfflineStoreNotInSafezone {
+            get {
+                return ResourceManager.GetString("OfflineStoreNotInSafezone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal store must be open (set prices and a store name first) to start an offline store..
+        /// </summary>
+        public static string OfflineStoreStoreNotOpen {
+            get {
+                return ResourceManager.GetString("OfflineStoreStoreNotOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An offline session is already active for this account..
+        /// </summary>
+        public static string OfflineStoreAlreadyActive {
+            get {
+                return ResourceManager.GetString("OfflineStoreAlreadyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline store started. Your store stays open for other players. Log back in to stop it..
+        /// </summary>
+        public static string OfflineStoreStarted {
+            get {
+                return ResourceManager.GetString("OfflineStoreStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start the offline store. Try again in a safe spot..
+        /// </summary>
+        public static string OfflineStoreFailed {
+            get {
+                return ResourceManager.GetString("OfflineStoreFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stat reset is not enabled..
         /// </summary>
         public static string StatResetNotEnabled {
@@ -2091,6 +2163,60 @@ namespace MUnique.OpenMU.GameLogic.Properties {
         public static string CharacterNotStrongEnoughMessage {
             get {
                 return ResourceManager.GetString("CharacterNotStrongEnoughMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success is active: all jewel upgrades succeed for {0} minutes!.
+        /// </summary>
+        public static string JewelLuckBuffActivated {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffActivated", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A Gem of Success buff is already active ({0} minutes remaining)..
+        /// </summary>
+        public static string JewelLuckBuffAlreadyActive {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffAlreadyActive", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Gem of Success is still active: all jewel upgrades succeed for another {0} minutes!.
+        /// </summary>
+        public static string JewelLuckBuffStillActive {
+            get {
+                return ResourceManager.GetString("JewelLuckBuffStillActive", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Type a word to guess, e.g. /scrabble hello..
+        /// </summary>
+        public static string ScrabbleNoWord {
+            get {
+                return ResourceManager.GetString("ScrabbleNoWord", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to There is no active Scrabble round right now..
+        /// </summary>
+        public static string ScrabbleNoActiveGame {
+            get {
+                return ResourceManager.GetString("ScrabbleNoActiveGame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong word. Try again!.
+        /// </summary>
+        public static string ScrabbleWrongGuess {
+            get {
+                return ResourceManager.GetString("ScrabbleWrongGuess", resourceCulture);
             }
         }
     }

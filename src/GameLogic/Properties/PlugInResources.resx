@@ -1218,23 +1218,41 @@
   <data name="OfflineLevelingChatCommandPlugIn_Description" xml:space="preserve">
     <value>Allows players to start offline leveling with /offlevel. The character stays in the world after the client disconnects and stops when the player logs back in.</value>
   </data>
+  <data name="OfflineStoreChatCommandPlugIn_Name" xml:space="preserve">
+    <value>Offline Store Command</value>
+  </data>
+  <data name="OfflineStoreChatCommandPlugIn_Description" xml:space="preserve">
+    <value>Allows players to leave their character standing in a safe zone with the personal store open after the client disconnects, so other players can buy from it.</value>
+  </data>
   <data name="AutoResetChatCommandPlugIn_Name" xml:space="preserve">
     <value>Auto Reset Command</value>
   </data>
   <data name="AutoResetChatCommandPlugIn_Description" xml:space="preserve">
-    <value>Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages.</value>
+    <value>Handles the /autoreset chat command: automatically resets the character at the maximum level and distributes its reset points to strength, agility, vitality, energy and command by the given percentages. Use /autoreset off to deactivate it.</value>
   </data>
   <data name="AutoStatChatCommandPlugIn_Name" xml:space="preserve">
     <value>Auto Stat Distribution Command</value>
   </data>
   <data name="AutoStatChatCommandPlugIn_Description" xml:space="preserve">
-    <value>Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold.</value>
+    <value>Handles the /autostat chat command: automatically distributes the level-up points to strength, agility, vitality, energy and command by the given percentages, once the points reach the given threshold. Use /autostat off to deactivate it.</value>
   </data>
   <data name="BoxOfKundumEventPlugIn_Name" xml:space="preserve">
     <value>Box of Kundum Event</value>
   </data>
   <data name="BoxOfKundumEventPlugIn_Description" xml:space="preserve">
     <value>Drops a configurable amount of Box of Luck (Box of Kundum) items at configured times and locations, fires fireworks at the drop point and announces the event to all players.</value>
+  </data>
+  <data name="ScrabbleGamePlugIn_Name" xml:space="preserve">
+    <value>Scrabble Game</value>
+  </data>
+  <data name="ScrabbleGamePlugIn_Description" xml:space="preserve">
+    <value>Scheduled word-guess game: a scrambled word is announced to all players, the first to guess it with /scrabble wins the round's reward (zen or a configured item). Configurable rounds, rewards and daily start times.</value>
+  </data>
+  <data name="ScrabbleChatCommandPlugIn_Name" xml:space="preserve">
+    <value>Scrabble Command</value>
+  </data>
+  <data name="ScrabbleChatCommandPlugIn_Description" xml:space="preserve">
+    <value>Handles the /scrabble chat command: submits a word guess to the active Scrabble round.</value>
   </data>
   <data name="BoxOfKundumEventConfiguration_StartMessage_Name" xml:space="preserve">
     <value>Start message</value>
@@ -1319,5 +1337,23 @@
   </data>
   <data name="CastleSiegeLifeStoneConsumeHandlerPlugIn_Description" xml:space="preserve">
     <value>Consumes Life Stones after they are successfully placed during Castle Siege.</value>
+  </data>
+  <data name="JewelLuckBuffConsumeHandlerPlugIn_Name" xml:space="preserve">
+    <value>Gem of Success consume handler</value>
+  </data>
+  <data name="JewelLuckBuffConsumeHandlerPlugIn_Description" xml:space="preserve">
+    <value>Consumes the Gem of Success item and activates the 1-hour jewel upgrade success buff. A second use while active is refused.</value>
+  </data>
+  <data name="JewelLuckBuffDuration_Name" xml:space="preserve">
+    <value>Buff duration (seconds)</value>
+  </data>
+  <data name="JewelLuckBuffDuration_Description" xml:space="preserve">
+    <value>How long the 100% jewel upgrade success buff lasts, in seconds.</value>
+  </data>
+  <data name="JewelLuckBuffStatePlugIn_Name" xml:space="preserve">
+    <value>Gem of Success state handler</value>
+  </data>
+  <data name="JewelLuckBuffStatePlugIn_Description" xml:space="preserve">
+    <value>Restores the Gem of Success indicator effect with its remaining duration when a character enters the world.</value>
   </data>
 </root>

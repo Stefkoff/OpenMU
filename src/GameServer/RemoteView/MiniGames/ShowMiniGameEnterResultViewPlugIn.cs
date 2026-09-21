@@ -41,6 +41,11 @@ public class ShowMiniGameEnterResultViewPlugIn : IShowMiniGameEnterResultPlugIn
             case MiniGameType.ChaosCastle:
                 await this._player.Connection.SendChaosCastleEnterResultAsync(enterResult.ToChaosCastleEnterResult()).ConfigureAwait(false);
                 break;
+            case MiniGameType.Kanturu:
+                // The Kanturu enter flow teleports the player on success, so the only
+                // result we ever need to report here is a failure (closed dialog + popup).
+                await this._player.Connection.SendKanturuEnterResultAsync(enterResult == EnterResult.Success ? KanturuEnterResult.EnterResult.Success : KanturuEnterResult.EnterResult.Failed).ConfigureAwait(false);
+                break;
             case MiniGameType.Undefined:
                 throw new ArgumentException("undefined game type", nameof(miniGameType));
             default:

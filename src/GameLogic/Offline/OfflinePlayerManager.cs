@@ -30,14 +30,30 @@ public sealed class OfflinePlayerManager
     /// <returns><c>true</c> if the offline session was started successfully.</returns>
     public async ValueTask<bool> StartAsync(Player realPlayer, string loginName)
     {
+        return await this.StartSessionAsync(realPlayer, loginName, new OfflinePlayer(realPlayer.GameContext), chargeZen: true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Starts an offline store session: the character is replaced by a standing store ghost
+    /// which keeps the already-open personal store serving other players. No zen is charged,
+    /// because the ghost does not consume zen and does not farm.
+    /// </summary>
+    /// <param name="realPlayer">The real player who typed the command.</param>
+    /// <param name="loginName">The pre-validated account login name.</param>
+    /// <returns><c>true</c> if the offline store session was started successfully.</returns>
+    public async ValueTask<bool> StartStoreAsync(Player realPlayer, string loginName)
+    {
+        return await this.StartSessionAsync(realPlayer, loginName, new OfflineStorePlayer(realPlayer.GameContext), chargeZen: false).ConfigureAwait(false);
+    }
+
+    private async ValueTask<bool> StartSessionAsync(Player realPlayer, string loginName, OfflinePlayer sentinel, bool chargeZen)
+    {
         var characterName = realPlayer.SelectedCharacter?.Name;
 
         if (string.IsNullOrEmpty(characterName))
         {
             return false;
         }
-
-        var sentinel = new OfflinePlayer(realPlayer.GameContext);
 
         // Atomically claim the slot to prevent racing during initialization.
         if (!this._activePlayers.TryAdd(loginName, sentinel))
@@ -46,14 +62,14 @@ public sealed class OfflinePlayerManager
             return false;
         }
 
-        if (!this.TryChargeInitialZenCost(realPlayer))
-        {
-            await this.RemoveAndDisposeAsync(loginName, sentinel).ConfigureAwait(false);
-            return false;
-        }
-
         try
         {
+            if (chargeZen && !this.TryChargeInitialZenCost(realPlayer))
+            {
+                await this.RemoveAndDisposeAsync(loginName, sentinel).ConfigureAwait(false);
+                return false;
+            }
+
             await this.TransitionToOfflineAsync(realPlayer, loginName).ConfigureAwait(false);
 
             if (!await sentinel.InitializeAsync(loginName, characterName).ConfigureAwait(false))

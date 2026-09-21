@@ -24,7 +24,7 @@ public abstract class RefineStoneUpgradeConsumeHandlerPlugIn : ItemUpgradeConsum
     }
 
     /// <inheritdoc/>
-    protected override bool TryUpgradeItemOption(Item item)
+    protected override bool TryUpgradeItemOption(Player player, Item item)
     {
         var harmonyOption = item.ItemOptions.First(o => o.ItemOption?.OptionType == this.Configuration.OptionType);
         var levelOptions = harmonyOption.ItemOption?.LevelDependentOptions;
@@ -40,6 +40,6 @@ public abstract class RefineStoneUpgradeConsumeHandlerPlugIn : ItemUpgradeConsum
             }
         }
 
-        return base.TryUpgradeItemOption(item);
+        return base.TryUpgradeItemOption(player, item);
     }
 }
