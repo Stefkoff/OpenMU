@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MUnique.OpenMU.GameLogic;
 using MUnique.OpenMU.Interfaces;
 using System.Threading;
+using GameServerType = MUnique.OpenMU.GameServer.GameServer;
 
 /// <summary>
 /// A minimal public endpoint which reports the current server status without any authentication.
@@ -29,6 +30,7 @@ public class PublicStatusController : ControllerBase
     /// <summary>
     /// Gets the current status of all game servers.
     /// </summary>
+    /// <param name="cancellationToken">The cancellation token.</param>
     [HttpGet]
     public async Task<IActionResult> GetStatusAsync(CancellationToken cancellationToken)
     {
@@ -37,7 +39,7 @@ public class PublicStatusController : ControllerBase
         var totalPlayers = 0;
         foreach (var gameServer in this._gameServers.Values)
         {
-            if (gameServer is not GameServer concreteServer)
+            if (gameServer is not GameServerType concreteServer)
             {
                 continue;
             }
