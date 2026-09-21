@@ -6,6 +6,13 @@
 
 <h1 class="h4 mb-4">News</h1>
 
+@if (Model.IsAdmin)
+{
+    <div class="mb-3">
+        <a asp-page="/ManageNews" class="btn btn-outline-primary btn-sm">Manage news</a>
+    </div>
+}
+
 @if (Model.Items.Count == 0)
 {
     <div class="alert alert-info">No news yet.</div>

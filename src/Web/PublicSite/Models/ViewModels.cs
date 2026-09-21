@@ -46,6 +46,12 @@ public sealed class SiteSettings
     /// Gets or sets the patch download URL. Empty means not available yet.
     /// </summary>
     public string PatchDownloadUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the login names of accounts allowed to manage the site content (e.g. news).
+    /// Configured via the Site:Admins section, commonly as env overrides like Site__Admins__0.
+    /// </summary>
+    public ICollection<string> Admins { get; set; } = [];
 }
 
 /// <summary>
@@ -137,6 +143,12 @@ public sealed record GuildRankRow(string GuildName, int Score, int Members)
 /// </summary>
 public sealed class NewsItem
 {
+    /// <summary>
+    /// Gets or sets the stable id used for editing and deleting the entry.
+    /// Entries from older files without an id get one assigned at load time.
+    /// </summary>
+    public Guid Id { get; set; }
+
     /// <summary>
     /// Gets or sets the title.
     /// </summary>
