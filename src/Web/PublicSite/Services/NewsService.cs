@@ -33,6 +33,10 @@ public sealed class NewsService
     /// </summary>
     public string FilePath => Path.Combine(this._environment.ContentRootPath, "Data", "news.json");
 
+    // Files written by hand (and the seeded samples) use lowercase keys; the model
+    // properties are PascalCase, so reads must be case-insensitive.
+    private static readonly JsonSerializerOptions ReadOptions = new() { PropertyNameCaseInsensitive = true };
+
     /// <summary>
     /// Gets all news entries, newest first. Entries from older files without an id get one assigned.
     /// </summary>
@@ -49,7 +53,7 @@ public sealed class NewsService
         try
         {
             var items = File.Exists(this.FilePath)
-                ? JsonSerializer.Deserialize<List<NewsItem>>(File.ReadAllText(this.FilePath)) ?? []
+                ? JsonSerializer.Deserialize<List<NewsItem>>(File.ReadAllText(this.FilePath), this.ReadOptions) ?? []
                 : [];
             foreach (var item in items)
             {
