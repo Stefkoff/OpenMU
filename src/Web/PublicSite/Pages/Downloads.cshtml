@@ -26,6 +26,22 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-body">
+                <h2 class="h5 card-title">Linux client</h2>
+                <p class="card-text">The MuMain client for Linux (Ubuntu 24.04 x86_64) - Season 6.</p>
+                @if (!string.IsNullOrEmpty(SiteOptions.Value.ClientLinuxDownloadUrl))
+                {
+                    <a class="btn btn-primary" href="@SiteOptions.Value.ClientLinuxDownloadUrl">Download Linux client</a>
+                }
+                else
+                {
+                    <span class="text-muted">The Linux client download is not published yet.</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
                 <h2 class="h5 card-title">Patches</h2>
                 <p class="card-text">Additional patches, main menu updates and optional content.</p>
                 @if (!string.IsNullOrEmpty(SiteOptions.Value.PatchDownloadUrl))

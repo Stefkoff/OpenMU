@@ -43,6 +43,11 @@ public sealed class SiteSettings
     public string ClientDownloadUrl { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the Linux client download URL. Empty means not available yet.
+    /// </summary>
+    public string ClientLinuxDownloadUrl { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the patch download URL. Empty means not available yet.
     /// </summary>
     public string PatchDownloadUrl { get; set; } = string.Empty;
