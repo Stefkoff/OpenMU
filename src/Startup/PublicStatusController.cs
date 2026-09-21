@@ -1,9 +1,14 @@
+// <copyright file="PublicStatusController.cs" company="MUnique">
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </copyright>
+
 namespace MUnique.OpenMU.Startup;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MUnique.OpenMU.GameLogic;
 using MUnique.OpenMU.Interfaces;
+using MUnique.OpenMU.Persistence;
 using System.Threading;
 using GameServerType = MUnique.OpenMU.GameServer.GameServer;
 
